@@ -1,0 +1,211 @@
+
+
+/* =========================
+   ESTILOS DEL HEADER
+   ========================= */
+
+.header-nav {
+  background-color: var(--color-principal);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: var(--color-claro);
+}
+
+.navbar-nav .nav-link:hover {
+  text-decoration: underline;
+  color: var(--color-fondo);
+}
+
+.nav-link.active {
+  font-weight: bold;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* =========================
+   ESTILOS DEL SECTION BANNER
+   ========================= */
+
+.section-banner img {
+  aspect-ratio: 15/5;
+  object-fit: cover;
+}
+
+.carousel-indicator-custom {
+  background-color: var(--color-oscuro) !important;
+}
+
+.carousel-indicators .active {
+  background-color: var(--color-principal) !important;
+}
+/* =========================
+   ESTILOS DEL MAIN
+   ========================= */
+
+/* ===== SECCIÓN PRINCIPAL ===== */
+.section-main {
+  margin-top: 2.5rem;
+}
+
+.section-intro {
+  background-color: #ff6900;
+  margin-top: 2.5rem;
+  border-radius: 1rem;
+}
+
+/* ===== SECCIÓN DE PRODUCTOS ===== */
+.section-productos-title {
+  position: relative;
+  text-transform: uppercase;
+  font-size: 2rem;
+  padding-bottom: 0.5rem;
+  max-width: fit-content;
+  margin: 0 auto;
+  padding-inline: 5rem;
+}
+
+.section-productos-title::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: var(--color-principal);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+}
+
+.section-productos {
+  padding: 2.5rem 1rem;
+  background-color: var(--color-oscuro);
+  margin-top: 2.5rem;
+  border-radius: 1rem;
+}
+
+.section-productos-card {
+  background-color: var(--color-principal);
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--color-claro);
+  gap: 1rem;
+}
+
+.section-productos-cards {
+  padding: 2.5rem 1rem;
+  gap: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-productos-card-header img {
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+/* ===== SECCIÓN DE CARACTERÍSTICAS ===== */
+.section-caracteristicas {
+  margin-top: 2rem;
+  padding: 2.5rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-principal);
+}
+
+.section-caracteristicas-title {
+  position: relative;
+  text-transform: uppercase;
+  font-size: 2rem;
+  color: var(--color-principal);
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding-inline: 5rem;
+}
+
+.section-caracteristicas-title::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: var(--color-principal);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+}
+
+.section-caracteristicas-container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.section-caracteristicas-item i {
+  font-size: 6rem;
+  color: var(--color-acento);
+}
+
+.section-caracteristicas-item p {
+  font-size: 1rem;
+}
+
+.section-caracteristicas-item {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.section-caracteristicas-item:hover {
+  text-shadow: 3px 3px 8px var(--color-principal);
+}
+
+/* ========================
+   ESTILOS DEL FOOTER
+   ======================== */
+
+.footer-main {
+  background-color: var(--color-oscuro);
+  color: var(--color-claro);
+  padding-top: 2rem;
+  margin-top: 2.5rem;
+}
+
+.footer-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--color-claro);
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-list li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-list a {
+  text-decoration: none;
+  color: var(--color-claro);
+}
+
+.footer-divider {
+  border-color: var(--color-secundario);
+  margin: 1rem 0;
+}
+
+.nav-link:focus,
+.navbar-toggler:focus,
+.footer-list a:focus {
+  outline: 2px solid var(--color-principal);
+  outline-offset: 2px;
+}
