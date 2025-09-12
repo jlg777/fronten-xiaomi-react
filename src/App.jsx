@@ -7,6 +7,9 @@ function App() {
   return (
     <>
       <Navbar />
+      <section className="section-banner">
+        
+      </section>
     </>
   )
 }
