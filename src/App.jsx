@@ -11,6 +11,9 @@ function App() {
       <section className="section-banner">
         <Carousel />
       </section>
+       <main className="container-xl section-main">
+        
+       </main>
     </>
   )
 }
