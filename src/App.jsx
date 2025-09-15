@@ -1,6 +1,7 @@
 
 import './App.css'
 import Carousel from './components/Carousel/Carousel'
+import IntroSection from './components/Introsection/Introsection'
 import Navbar from './components/NavBar/Navbar'
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
         <Carousel />
       </section>
        <main className="container-xl section-main">
-        
+        <IntroSection />
        </main>
     </>
   )
