@@ -1,11 +1,11 @@
 import React from "react";
 
 const images = [
-  "/assets/images/1024_682.jpeg",
-  "/assets/images/1024_682 (1).jpeg",
-  "/assets/images/1024_682 (2).jpeg",
-  "/assets/images/1024_682 (3).jpeg",
-  "/assets/images/1024_682 (4).jpeg",
+  "/images/1024_682.jpeg",
+  "/images/1024_682 (1).jpeg",
+  "/images/1024_682 (2).jpeg",
+  "/images/1024_682 (3).jpeg",
+  "/images/1024_682 (4).jpeg",
 ];
 
 const Carousel = () => {
@@ -33,41 +33,19 @@ const Carousel = () => {
         ))}
       </div>
       <div className="carousel-inner">
-        <div className="carousel-item active" data-bs-interval="2000">
+        {images.map((image, index) =>(
+          <div 
+            key={index} 
+            className={`carousel-item${index === 0 ? " active" : ""}`}
+            data-bs-interval="2000">
+
           <img
-            src="/assets/images/1024_682.jpeg"
+            src={image}
             className="d-block w-100"
-            alt="image-Carrousel-1"
+              alt={`image-Carousel-${index + 1}`}
           />
         </div>
-        <div className="carousel-item" data-bs-interval="2000">
-          <img
-            src="/assets/images/1024_682 (1).jpeg"
-            className="d-block w-100"
-            alt="image-Carrousel-2"
-          />
-        </div>
-        <div className="carousel-item" data-bs-interval="2000">
-          <img
-            src="/assets/images/1024_682 (2).jpeg"
-            className="d-block w-100"
-            alt="image-Carrousel-3"
-          />
-        </div>
-        <div className="carousel-item" data-bs-interval="2000">
-          <img
-            src="/assets/images/1024_682 (3).jpeg"
-            className="d-block w-100"
-            alt="image-Carrousel-4"
-          />
-        </div>
-        <div className="carousel-item" data-bs-interval="2000">
-          <img
-            src="/assets/images/1024_682 (4).jpeg"
-            className="d-block w-100"
-            alt="image-Carrousel-5"
-          />
-        </div>
+        ))}
       </div>
       <button
         className="carousel-control-prev"
