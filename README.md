@@ -1,12 +1,81 @@
-# React + Vite
+<div> <p style="text-align:center"> <img align="center" src="./public/programador.png" alt="JuveYell" width="300px"> </p> </div> <h2 align="center" style="color:#CD5C5C">JLG'777' <img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="22" /></h2> <p align="center"> <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=4000&pause=1000&multiline=true&random=false&width=435&lines=Un+proyecto+creado+por+J0RG1T0" alt="Typing SVG" /></a> </p> <hr>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📧 Conéctate conmigo:
 
-Currently, two official plugins are available:
+[![GMAIL](https://img.shields.io/badge/Gmail-Gmail?style=white&logo=Gmail&logoColor=white&color=%23EA4335)](proyectojlg777@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-LinkedIn?style=white&logo=LinkedIn&logoColor=white&color=%230A66C2)](https://linkedin.com/in/)
+[![Discord](https://img.shields.io/badge/Discord-Discord?style=white&logo=Discord&logoColor=white&color=%235865F2)](jorgeg777#9720)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Digitalers Games
 
-## Expanding the ESLint configuration
+**Digitalers Games** es un sitio web moderno y responsivo desarrollado con **HTML**, **CSS personalizado** y **Bootstrap 5**, enfocado en mostrar productos, promociones y noticias del mundo de **Xiaomi**.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Características
+
+- Diseño responsive con Bootstrap 5.
+- Carrusel de imágenes promocionales.
+- Secciones de introducción, productos y características.
+- Iconografía mediante Bootstrap Icons.
+- Estilo personalizado mediante CSS variables.
+
+## 📁 Estructura de carpetas
+
+```text
+Digitalers-games/
+│
+├── assets/
+│ └── images/
+│ └── [Imágenes del carrusel e intro]
+├── css/
+│ └── styles.css
+├── index.html
+├── README.md
+├── .gitignore
+└── LICENSE
+```
+
+## 💡 Próximas mejoras
+
+- Página de productos con cards dinámicas.
+- Sección "Nosotros" con información institucional.
+- Área de administración (actualmente deshabilitada).
+- Mejoras de accesibilidad y performance.
+
+## 🛠 Tecnologías usadas
+
+- HTML5
+- CSS3
+- Bootstrap 5.3.7
+- Bootstrap Icons
+
+## 📸 Vista previa
+
+![Captura de ejemplo del carrusel](./assets/images/captura.png)
+
+---
+
+## ✒️ Autores
+
+**Jorge Grandía** - _Trabajo Inicial_ - [JLG777](https://github.com/jlg777)
+
+**Jorge Grandía** - _Documentación_ - [JLG777](#jlg777)
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más información.
+
+## 🎁 Expresiones de Gratitud
+
+- Comenta a otros sobre este proyecto 📢
+- Invita una cerveza 🍺 o un café ☕ a alguien del equipo.
+- Da las gracias públicamente 🤓.
+- Dona con cripto a esta dirección:
+  - (btc) 16ApGFxMXfF8ktysSkmLBzLEJPHubtwKjp
+  - (btc-SegWit) bc1q0v8fvv3gvga02h9xspcg7npghjfyny20lavc37
+  - (Ethereum) 0x1ee2842c194c95bc54473c6b27d602fc0bfc81a9
+
+---
+
+⌨️ con ❤️ por JLG777 😊
+
+_Copyright (c) [2025] [jlg777]_

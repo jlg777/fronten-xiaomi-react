@@ -1,4 +1,25 @@
+import { useState } from "react";
+
 const ProductForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    image: "",
+    price: "",
+    category: "",
+    description: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+
+  console.log(formData)
   return (
     <>
       {/* Formulario de ingreso */}
@@ -16,6 +37,8 @@ const ProductForm = () => {
               required
               placeholder="Producto Xiaomi"
               spellCheck={true}
+              value={formData.name}
+              onChange={handleChange}
             />
           </div>
           <div className="mb-3">
@@ -28,6 +51,8 @@ const ProductForm = () => {
               id="productImage"
               name="image"
               placeholder="Link de la imagen"
+              value={formData.image}
+              onChange={handleChange}
             />
           </div>
           <div className="mb-3">
@@ -44,6 +69,8 @@ const ProductForm = () => {
               min="0"
               max="9999999"
               step="0.01"
+              value={formData.price}
+              onChange={handleChange}
             />
           </div>
           <div className="mb-3">
@@ -55,7 +82,8 @@ const ProductForm = () => {
               name="category"
               id="productCategory"
               required
-              defaultValue=""
+              value={formData.category}
+              onChange={handleChange}
             >
               <option disabled value="">
                 Elija una categoría
@@ -76,6 +104,8 @@ const ProductForm = () => {
               id="productDescription"
               rows="3"
               name="description"
+              value={formData.description}
+            onChange={handleChange}
             ></textarea>
           </div>
           <button type="submit" className="btn btn-outline-primary">
