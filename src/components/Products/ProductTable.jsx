@@ -1,24 +1,77 @@
-const ProductTable = () => {
-  return (
-    <>
-    {/* Tabla de productos */}
-            <table className="table table-hover table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Imagen</th>
-                  <th scope="col">Precio</th>
-                  <th scope="col">Categoría</th>
-                  <th scope="col">Descripción</th>
-                  <th scope="col">Fecha</th>
-                  <th scope="col">Acciones</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-    </>
-  )
-}
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { formatDate } from "../../utils/localDate";
 
-export default ProductTable
+const ProductTable = () => {
+  const apiUrl = "https://68b7345773b3ec66cec413ee.mockapi.io/pages/products";
+  const [product, setProduct] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}`);
+        setProduct(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error al cargar los productos", error);
+        setError(error);
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  if (loading) return <p>Cargando productos...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  /*console.log(product)*/
+    return (
+    <>
+      {/* Tabla de productos */}
+      <table className="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+           {product.map((prod) => (
+          <tr key={prod.id}>
+            <th scope="row"> ${prod.id} </th>
+            <td> ${prod.name}</td>
+            <td>
+              <img
+                src={prod.image}
+                style={{ width: "10rem", height: "8rem", objectFit: "cover" }}
+                className="rounded"
+              />
+            </td>
+            <td>{prod.price}</td>
+            <td>{prod.category}</td>
+            <td>{prod.description} </td>
+            <td>{formatDate(prod.createdAt)}</td>
+            <td>
+              <button type="button" className="btn btn-outline-primary">
+                <i className="bi bi-pencil"></i>
+              </button>
+              <button type="button" className="btn btn-outline-danger">
+                <i className="bi bi-trash-fill"></i>
+              </button>
+            </td>
+          </tr>
+           ))}
+        </tbody>
+      </table>
+    </>
+  );
+};
+
+export default ProductTable;
