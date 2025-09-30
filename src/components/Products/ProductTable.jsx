@@ -1,10 +1,17 @@
+import Swal from "sweetalert2";
 import { formatDate } from "../../utils/localDate";
+import axios from "axios";
 
-const ProductTable = ({ products = [], loading, error }) => {
+const ProductTable = ({ products = [], loading, error, refetch }) => {
+  const apiUrl = "https://68b7345773b3ec66cec413ee.mockapi.io/pages/products";
   if (loading)
     return (
       <div className="d-flex justify-content-center my-5">
-        <div className="spinner-border text-primary" role="status" aria-label="Cargando productos">
+        <div
+          className="spinner-border text-primary"
+          role="status"
+          aria-label="Cargando productos"
+        >
           <span className="visually-hidden">Cargando...</span>
         </div>
       </div>
@@ -13,9 +20,36 @@ const ProductTable = ({ products = [], loading, error }) => {
   if (error)
     return (
       <div className="alert alert-danger text-center" role="alert">
-        <strong>Error:</strong> {error.message || "No se pudo cargar la lista de productos."}
+        <strong>Error:</strong>{" "}
+        {error.message || "No se pudo cargar la lista de productos."}
       </div>
     );
+
+  const onDelete = async (id) => {
+    const result = await Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción eliminará el producto de forma permanente.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await axios.delete(`${apiUrl}/${id}`);
+        Swal.fire(
+          "Eliminado",
+          "El producto fue eliminado correctamente",
+          "success"
+        );
+        await refetch();
+      } catch (error) {
+        Swal.fire("Error", "No se pudo eliminar el producto", "error");
+        console.error("Error al eliminar producto:", error);
+      }
+    }
+  };
 
   return (
     <table className="table table-hover table-bordered">
@@ -52,7 +86,11 @@ const ProductTable = ({ products = [], loading, error }) => {
               <button type="button" className="btn btn-outline-primary me-2">
                 <i className="bi bi-pencil"></i>
               </button>
-              <button type="button" className="btn btn-outline-danger">
+              <button
+                type="button"
+                className="btn btn-outline-danger"
+                onClick={() => onDelete(prod.id)}
+              >
                 <i className="bi bi-trash-fill"></i>
               </button>
             </td>

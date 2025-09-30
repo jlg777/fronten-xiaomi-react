@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
-const ProductForm = ({refetch}) => {
+const ProductForm = ({ refetch }) => {
   const [loading, setLoading] = useState(false);
 
   const {
@@ -13,32 +13,31 @@ const ProductForm = ({refetch}) => {
     formState: { errors, isValid },
   } = useForm({ mode: "all" });
 
-   const apiUrl = "https://68b7345773b3ec66cec413ee.mockapi.io/pages/products";
+  const apiUrl = "https://68b7345773b3ec66cec413ee.mockapi.io/pages/products";
 
- const onSubmit = async (data) => {
-  setLoading(true);
-  try {
-    await axios.post(apiUrl, data);
-    Swal.fire({
-      icon: "success",
-      title: "Producto agregado",
-      text: "El producto fue agregado correctamente",
-      timer: 2000,
-      showConfirmButton: false,
-    });
-    reset();
-    await refetch();
-  } catch (error) {
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "No se pudo agregar el producto, intenta nuevamente",
-    });
-  } finally {
-    setLoading(false);
-  }
-};
-
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      await axios.post(apiUrl, data);
+      Swal.fire({
+        icon: "success",
+        title: "Producto agregado",
+        text: "El producto fue agregado correctamente",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      reset();
+      await refetch();
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo agregar el producto, intenta nuevamente",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -156,24 +155,27 @@ const ProductForm = ({refetch}) => {
             }
           >
             <button
-  type="submit"
-  className={isValid && !loading ? "btn btn-primary" : "btn btn-outline-secondary"}
-  disabled={!isValid || loading}
->
-  {loading ? (
-    <>
-      <span
-        className="spinner-border spinner-border-sm"
-        role="status"
-        aria-hidden="true"
-      ></span>{" "}
-      Enviando...
-    </>
-  ) : (
-    "Agregar producto"
-  )}
-</button>
-
+              type="submit"
+              className={
+                isValid && !loading
+                  ? "btn btn-primary"
+                  : "btn btn-outline-secondary"
+              }
+              disabled={!isValid || loading}
+            >
+              {loading ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>{" "}
+                  Enviando...
+                </>
+              ) : (
+                "Agregar producto"
+              )}
+            </button>
           </div>
         </form>
       </div>

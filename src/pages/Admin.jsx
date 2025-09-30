@@ -39,13 +39,14 @@ const Admin = () => {
         <main className="contenido container-xxxl">
           <h1 className="main-title text-center">ADMINISTRADOR DE PRODUCTOS</h1>
           <div className="row">
-<ProductForm refetch={refetch} />
+            <ProductForm refetch={refetch} />
             <div className="col-12 col-lg-10">
               <ProductSearch onSearch={handleSearch} />
               <ProductTable
                 products={filteredProducts}
                 loading={loading}
                 error={error}
+                refetch={refetch}
               />
             </div>
           </div>
