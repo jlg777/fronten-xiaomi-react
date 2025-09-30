@@ -1,30 +1,54 @@
+import axios from "axios";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
-const ProductForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    image: "",
-    price: "",
-    category: "",
-    description: "",
-  });
+const ProductForm = ({refetch}) => {
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+  } = useForm({ mode: "all" });
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+   const apiUrl = "https://68b7345773b3ec66cec413ee.mockapi.io/pages/products";
+
+ const onSubmit = async (data) => {
+  setLoading(true);
+  try {
+    await axios.post(apiUrl, data);
+    Swal.fire({
+      icon: "success",
+      title: "Producto agregado",
+      text: "El producto fue agregado correctamente",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+    reset();
+    await refetch();
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "No se pudo agregar el producto, intenta nuevamente",
+    });
+  } finally {
+    setLoading(false);
+  }
+};
 
 
-  console.log(formData)
   return (
     <>
       {/* Formulario de ingreso */}
       <div className="col-12 col-lg-2">
-        <form id="xiaomiForm" name="name" className="xiaomiForm">
+        <form
+          id="xiaomiForm"
+          className="xiaomiForm"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="mb-3">
             <label htmlFor="productName" className="form-label">
               Nombre del Producto
@@ -33,13 +57,13 @@ const ProductForm = () => {
               type="text"
               className="form-control"
               id="productName"
-              name="name"
-              required
               placeholder="Producto Xiaomi"
               spellCheck={true}
-              value={formData.name}
-              onChange={handleChange}
+              {...register("name", { required: true })}
             />
+            {errors.name && (
+              <p className="text-danger">El nombre es obligatorio</p>
+            )}
           </div>
           <div className="mb-3">
             <label htmlFor="productImage" className="form-label">
@@ -49,11 +73,17 @@ const ProductForm = () => {
               type="url"
               className="form-control"
               id="productImage"
-              name="image"
               placeholder="Link de la imagen"
-              value={formData.image}
-              onChange={handleChange}
+              {...register("image", {
+                pattern: {
+                  value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i,
+                  message: "Debe ser una URL de imagen válida",
+                },
+              })}
             />
+            {errors.image && (
+              <p className="text-danger">{errors.image.message}</p>
+            )}
           </div>
           <div className="mb-3">
             <label htmlFor="productPrice" className="form-label">
@@ -63,15 +93,23 @@ const ProductForm = () => {
               type="number"
               className="form-control"
               id="productPrice"
-              name="price"
-              required
               placeholder="$"
-              min="0"
-              max="9999999"
               step="0.01"
-              value={formData.price}
-              onChange={handleChange}
+              {...register("price", {
+                required: "El precio es obligatorio",
+                min: {
+                  value: 0.01,
+                  message: "El precio debe ser mayor a 0",
+                },
+                max: {
+                  value: 9999999,
+                  message: "El precio es demasiado alto",
+                },
+              })}
             />
+            {errors.price && (
+              <p className="text-danger">{errors.price.message}</p>
+            )}
           </div>
           <div className="mb-3">
             <label htmlFor="productCategory" className="form-label">
@@ -79,11 +117,9 @@ const ProductForm = () => {
             </label>
             <select
               className="form-select"
-              name="category"
               id="productCategory"
-              required
-              value={formData.category}
-              onChange={handleChange}
+              defaultValue=""
+              {...register("category", { required: true })}
             >
               <option disabled value="">
                 Elija una categoría
@@ -94,6 +130,9 @@ const ProductForm = () => {
               <option value="Home Appliances">Artículos del hogar</option>
               <option value="Electronics">Electronica</option>
             </select>
+            {errors.category && (
+              <p className="text-danger">La categoría es obligatoria</p>
+            )}
           </div>
           <div className="mb-3">
             <label htmlFor="productDescription" className="form-label">
@@ -103,14 +142,39 @@ const ProductForm = () => {
               className="form-control"
               id="productDescription"
               rows="3"
-              name="description"
-              value={formData.description}
-            onChange={handleChange}
+              {...register("description", { required: true })}
             ></textarea>
+            {errors.description && (
+              <p className="text-danger">La descripción es obligatoria</p>
+            )}
           </div>
-          <button type="submit" className="btn btn-outline-primary">
-            Agregar producto
-          </button>
+          <div
+            title={
+              !isValid
+                ? "Completa todos los campos correctamente para enviar"
+                : ""
+            }
+          >
+            <button
+  type="submit"
+  className={isValid && !loading ? "btn btn-primary" : "btn btn-outline-secondary"}
+  disabled={!isValid || loading}
+>
+  {loading ? (
+    <>
+      <span
+        className="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>{" "}
+      Enviando...
+    </>
+  ) : (
+    "Agregar producto"
+  )}
+</button>
+
+          </div>
         </form>
       </div>
     </>
