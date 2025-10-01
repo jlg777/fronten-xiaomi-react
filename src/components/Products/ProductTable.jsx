@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import { formatDate } from "../../utils/localDate";
 import axios from "axios";
 
-const ProductTable = ({ products = [], loading, error, refetch }) => {
+const ProductTable = ({ products = [], loading, error, refetch, onEdit }) => {
   const apiUrl = "https://68b7345773b3ec66cec413ee.mockapi.io/pages/products";
   if (loading)
     return (
@@ -83,7 +83,11 @@ const ProductTable = ({ products = [], loading, error, refetch }) => {
             <td>{prod.description}</td>
             <td>{formatDate(prod.createdAt)}</td>
             <td>
-              <button type="button" className="btn btn-outline-primary me-2">
+              <button
+                type="button"
+                className="btn btn-outline-primary me-2"
+                onClick={() => onEdit(prod)}
+              >
                 <i className="bi bi-pencil"></i>
               </button>
               <button
