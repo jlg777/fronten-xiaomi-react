@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -22,27 +21,41 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">
+             <NavLink
+                aria-current="page"
+                to="/"
+                end
+                className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+              >
                 Principal
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/productos">
+              <NavLink className={({isActive}) => (isActive ? "nav-link active" : "nav-link")} to="/productos">
                 Productos
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/nosotros">
+              <NavLink className={({isActive}) => (isActive ? "nav-link active" : "nav-link")} to="/nosotros">
                 Nosotros
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/admin">
+              <NavLink className={({isActive}) => (isActive ? "nav-link active" : "nav-link")} to="/admin">
                 Admin
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>
+        <NavLink to="/login" >
+        <button
+          id="userToggleBtn"
+          className="btn btn-outline-light ms-3"
+          title="Login de usuario"
+        >
+        <i class="bi bi-person-circle"></i>
+        </button>
+        </NavLink>
         <button
           id="themeToggleBtn"
           className="btn btn-outline-light ms-3 btn-theme-toggle"
