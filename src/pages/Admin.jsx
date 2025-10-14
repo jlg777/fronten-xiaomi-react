@@ -9,13 +9,29 @@ import "../css/layout.css";
 import useProducts from "../hooks/useProducts";
 
 const Admin = () => {
-  const { products, loading, error } = useProducts();
+  const { products, loading, error, refetch } = useProducts();
   const [filteredProducts, setFilteredProducts] = useState([]);
-  // Se actualiza cuando se cargan los productos por primera vez
+  const [productToEdit, setProductToEdit] = useState(null)
+
   useEffect(() => {
     setFilteredProducts(products);
-    console.log(filteredProducts);
   }, [products]);
+
+  const handleSearch = (searchTerm, category) => {
+    let filtered = products;
+
+    if (category && category !== "all") {
+      filtered = filtered.filter((p) => p.category === category);
+    }
+
+    if (searchTerm && searchTerm.trim() !== "") {
+      filtered = filtered.filter((p) =>
+        p.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    setFilteredProducts(filtered);
+  };
 
   return (
     <>
@@ -24,13 +40,15 @@ const Admin = () => {
         <main className="contenido container-xxxl">
           <h1 className="main-title text-center">ADMINISTRADOR DE PRODUCTOS</h1>
           <div className="row">
-            <ProductForm />
+            <ProductForm refetch={refetch} productToEdit={productToEdit} setProductToEdit={setProductToEdit}/>
             <div className="col-12 col-lg-10">
-              <ProductSearch />
+              <ProductSearch onSearch={handleSearch} />
               <ProductTable
                 products={filteredProducts}
                 loading={loading}
                 error={error}
+                refetch={refetch}
+                onEdit={setProductToEdit}
               />
             </div>
           </div>
