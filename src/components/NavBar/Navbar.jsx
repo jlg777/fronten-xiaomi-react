@@ -53,7 +53,7 @@ const Navbar = () => {
           className="btn btn-outline-light ms-3"
           title="Login de usuario"
         >
-        <i class="bi bi-person-circle"></i>
+        <i className="bi bi-person-circle"></i>
         </button>
         </NavLink>
         <button

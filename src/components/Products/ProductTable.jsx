@@ -3,7 +3,7 @@ import { formatDate } from "../../utils/localDate";
 import axios from "axios";
 
 const ProductTable = ({ products = [], loading, error, refetch, onEdit }) => {
-  const apiUrl = "https://68b7345773b3ec66cec413ee.mockapi.io/pages/products";
+  const apiUrl = import.meta.env.VITE_API_MONGO;
   if (loading)
     return (
       <div className="d-flex justify-content-center my-5">
@@ -25,7 +25,8 @@ const ProductTable = ({ products = [], loading, error, refetch, onEdit }) => {
       </div>
     );
 
-  const onDelete = async (id) => {
+  const onDelete = async(id) => {
+    console.log(id)
     const result = await Swal.fire({
       title: "¿Estás seguro?",
       text: "Esta acción eliminará el producto de forma permanente.",
@@ -67,8 +68,8 @@ const ProductTable = ({ products = [], loading, error, refetch, onEdit }) => {
       </thead>
       <tbody>
         {products.map((prod) => (
-          <tr key={prod.id}>
-            <th scope="row">{prod.id}</th>
+          <tr key={prod._id}>
+            <th scope="row">{prod._id}</th>
             <td>{prod.name}</td>
             <td>
               <img
@@ -93,7 +94,7 @@ const ProductTable = ({ products = [], loading, error, refetch, onEdit }) => {
               <button
                 type="button"
                 className="btn btn-outline-danger"
-                onClick={() => onDelete(prod.id)}
+                onClick={() => onDelete(prod._id)}
               >
                 <i className="bi bi-trash-fill"></i>
               </button>

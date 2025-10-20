@@ -19,26 +19,6 @@
       integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
       crossorigin="anonymous"
     ></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const toggleBtn = document.getElementById("themeToggleBtn");
-        const html = document.documentElement;
-
-        toggleBtn.addEventListener("click", () => {
-          const currentTheme = html.getAttribute("data-bs-theme");
-          const newTheme = currentTheme === "dark" ? "light" : "dark";
-          html.setAttribute("data-bs-theme", newTheme);
-
-          toggleBtn.innerHTML =
-            newTheme === "dark"
-              ? '<i class="bi bi-sun-fill"></i>'
-              : '<i class="bi bi-moon-fill"></i>';
-          // Cambiar clases del botón
-          toggleBtn.classList.toggle("btn-outline-light");
-          toggleBtn.classList.toggle("btn-outline-dark");
-        });
-      });
-    </script>
 
     <!--Icons Bootstrap-->
     <link

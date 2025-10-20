@@ -13,15 +13,17 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
     formState: { errors, isValid },
   } = useForm({ mode: "all" });
 
-  const apiUrl = "https://68b7345773b3ec66cec413ee.mockapi.io/pages/products";
+  const apiUrl = import.meta.env.VITE_API_MONGO;
 
   useEffect(() => {
     if (productToEdit) {
+      console.log(productToEdit._id)
       reset(productToEdit);
     }
   }, [productToEdit, reset]);
 
   const onSubmit = async (data) => {
+  console.log(data)
     setLoading(true);
     try {
       if (productToEdit) {
@@ -34,7 +36,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
           cancelButtonText: "Cancelar",
         });
         if (result.isConfirmed) {
-          await axios.put(`${apiUrl}/${productToEdit.id}`, data);
+          await axios.put(`${apiUrl}/${productToEdit._id}`, data);
           Swal.fire({
             icon: "success",
             title: "Editado",
@@ -114,7 +116,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
                 pattern: {
                   value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i,
                   message: "Debe ser una URL de imagen válida",
-                },
+                } 
               })}
             />
             {errors.image && (
@@ -132,6 +134,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
               placeholder="$"
               step="0.01"
               {...register("price", {
+                valueAsNumber: true,
                 required: "El precio es obligatorio",
                 min: {
                   value: 0.01,
