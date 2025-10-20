@@ -6,8 +6,8 @@ const useProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const apiUrl = "https://68b7345773b3ec66cec413ee.mockapi.io/pages/products";
-
+  const apiUrl = import.meta.env.VITE_API_MONGO;
+  //console.log(apiUrl);
   const fetchProducts = async () => {
     try {
       const response = await axios.get(apiUrl);
