@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../components/NavBar/Navbar";
 import Footer from "../components/Footer/Footer";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
 
   const {
     register,
@@ -15,31 +15,25 @@ const Login = () => {
     formState: { errors },
   } = useForm({ mode: "all" });
 
-  const oneSubmit = (data) => {
-    const { email, password } = data;
+  const apiUrl = import.meta.env.VITE_API_MONGO_USERS;
 
-     const users = [
-      { email: "admin@demo.com", password: "123456", role: "admin" },
-      { email: "user@demo.com", password: "123456", role: "user" },
-    ];
+  const oneSubmit = async (data) => {
+    //console.log(data);
+    try {
+      const response = await axios.post(`${apiUrl}/login`, data);
+      const { roleAdmin } = response.data;
+      alert(
+        `¡Bienvenido, ${roleAdmin === "admin" ? "Administrador" : "Usuario"}!`
+      );
 
-     const foundUser = users.find(
-      (u) => u.email === email && u.password === password
-    );
-
-   if (foundUser) {
-      setError("");
-      alert(`¡Bienvenido, ${foundUser.role === "admin" ? "Administrador" : "Usuario"}!`);
-
-      // Redirigir según el rol
-      if (foundUser.role === "admin") {
+      if (roleAdmin === "admin") {
         navigate("/admin");
+      } else if (roleAdmin === "user") {
+        navigate("/user");
       } else {
-        navigate("/");
+        navigate("/"); 
       }
-    } else {
-      setError("Usuario o contraseña incorrectos");
-    }
+    } catch (error) {}
   };
 
   return (
@@ -98,7 +92,7 @@ const Login = () => {
             )}
           </div>
 
-           {error && <div className="alert alert-danger">{error}</div>}
+          {error && <div className="alert alert-danger">{error}</div>}
           <button type="submit" className="btn btn-primary w-100">
             Ingresar
           </button>
