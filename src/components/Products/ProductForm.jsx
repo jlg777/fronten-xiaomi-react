@@ -2,9 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import ProductImage from "./ProductImage.jsx";
 
 const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
   const [loading, setLoading] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
 
   const {
     register,
@@ -17,13 +19,13 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
 
   useEffect(() => {
     if (productToEdit) {
-      console.log(productToEdit._id)
+      console.log(productToEdit._id);
       reset(productToEdit);
     }
   }, [productToEdit, reset]);
 
   const onSubmit = async (data) => {
-  console.log(data)
+    console.log(data);
     setLoading(true);
     try {
       if (productToEdit) {
@@ -66,6 +68,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
       }
 
       reset();
+      setSelectedImage("");
       await refetch();
     } catch (error) {
       Swal.fire({
@@ -107,21 +110,11 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
             <label htmlFor="productImage" className="form-label">
               Imagen del Producto
             </label>
-            <input
-              type="url"
-              className="form-control"
-              id="productImage"
-              placeholder="Link de la imagen"
-              {...register("image", {
-                pattern: {
-                  value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i,
-                  message: "Debe ser una URL de imagen válida",
-                } 
-              })}
+
+            <ProductImage
+              onImageChange={setSelectedImage}
+              initialImage={productToEdit?.image || ""}
             />
-            {errors.image && (
-              <p className="text-danger">{errors.image.message}</p>
-            )}
           </div>
           <div className="mb-3">
             <label htmlFor="productPrice" className="form-label">

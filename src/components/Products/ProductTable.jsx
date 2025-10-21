@@ -4,6 +4,9 @@ import axios from "axios";
 
 const ProductTable = ({ products = [], loading, error, refetch, onEdit }) => {
   const apiUrl = import.meta.env.VITE_API_MONGO;
+
+  // Validación adicional para asegurar que products sea un array
+  const safeProducts = Array.isArray(products) ? products : [];
   if (loading)
     return (
       <div className="d-flex justify-content-center my-5">
@@ -25,8 +28,8 @@ const ProductTable = ({ products = [], loading, error, refetch, onEdit }) => {
       </div>
     );
 
-  const onDelete = async(id) => {
-    console.log(id)
+  const onDelete = async (id) => {
+    console.log(id);
     const result = await Swal.fire({
       title: "¿Estás seguro?",
       text: "Esta acción eliminará el producto de forma permanente.",
@@ -67,7 +70,7 @@ const ProductTable = ({ products = [], loading, error, refetch, onEdit }) => {
         </tr>
       </thead>
       <tbody>
-        {products.map((prod) => (
+        {safeProducts.map((prod) => (
           <tr key={prod._id}>
             <th scope="row">{prod._id}</th>
             <td>{prod.name}</td>

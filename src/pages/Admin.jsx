@@ -11,13 +11,20 @@ import useProducts from "../hooks/useProducts";
 const Admin = () => {
   const { products, loading, error, refetch } = useProducts();
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [productToEdit, setProductToEdit] = useState(null)
+  const [productToEdit, setProductToEdit] = useState(null);
 
   useEffect(() => {
-    setFilteredProducts(products);
+    if (Array.isArray(products)) {
+      setFilteredProducts(products);
+    }
   }, [products]);
 
   const handleSearch = (searchTerm, category) => {
+    if (!Array.isArray(products)) {
+      setFilteredProducts([]);
+      return;
+    }
+
     let filtered = products;
 
     if (category && category !== "all") {
@@ -40,7 +47,11 @@ const Admin = () => {
         <main className="contenido container-xxxl">
           <h1 className="main-title text-center">ADMINISTRADOR DE PRODUCTOS</h1>
           <div className="row">
-            <ProductForm refetch={refetch} productToEdit={productToEdit} setProductToEdit={setProductToEdit}/>
+            <ProductForm
+              refetch={refetch}
+              productToEdit={productToEdit}
+              setProductToEdit={setProductToEdit}
+            />
             <div className="col-12 col-lg-10">
               <ProductSearch onSearch={handleSearch} />
               <ProductTable
