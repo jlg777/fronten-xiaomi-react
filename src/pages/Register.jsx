@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../components/NavBar/Navbar";
 import Footer from "../components/Footer/Footer";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [error, setError] = useState("");
@@ -14,8 +16,29 @@ const Register = () => {
     formState: { errors },
   } = useForm({ mode: "all" });
 
-  const oneSubmit = (data) => {
-    const { email, password } = data;
+  const apiUrl = import.meta.env.VITE_API_MONGO_USERS;
+
+  const oneSubmit = async (data) => {
+    //const { email, password } = data;
+    try {
+      const response = await axios.post(apiUrl, data);
+      Swal.fire({
+        icon: "success",
+        title: "Usuario agregado",
+        text: "El Usuario fue agregado correctamente",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+      if (error.response?.data?.details || error.response?.data?.error) {
+        const { error: title, details } = error.response.data;
+        setError(`${title}: ${details}`);
+      } else {
+        setError("Error en el registro. Intenta nuevamente.");
+      }
+    }
   };
 
   return (
@@ -28,7 +51,7 @@ const Register = () => {
       >
         <h2 className="mb-4 text-center">Registro</h2>
         <form
-          //onSubmit={handleSubmit(oneSubmit)}
+          onSubmit={handleSubmit(oneSubmit)}
           className="mx-auto"
           style={{ maxWidth: 400 }}
           role="form"
@@ -44,7 +67,7 @@ const Register = () => {
               {...register("name", {
                 required: "El nombre es obligatorio",
                 pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  value: /^[a-zA-Z0-9_]+$/,
                   message: "Nombre no válido",
                 },
               })}
