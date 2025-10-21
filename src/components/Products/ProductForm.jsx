@@ -12,6 +12,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isValid },
   } = useForm({ mode: "all" });
 
@@ -19,13 +20,18 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
 
   useEffect(() => {
     if (productToEdit) {
-      console.log(productToEdit._id);
+      //console.log(productToEdit._id);
       reset(productToEdit);
     }
   }, [productToEdit, reset]);
 
+
+const handleImageChange = (url) => {
+    setValue("image", url, { shouldValidate: true, shouldDirty: true });
+}
+
   const onSubmit = async (data) => {
-    console.log(data);
+    //console.log(data);
     setLoading(true);
     try {
       if (productToEdit) {
@@ -110,9 +116,8 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
             <label htmlFor="productImage" className="form-label">
               Imagen del Producto
             </label>
-
             <ProductImage
-              onImageChange={setSelectedImage}
+              onImageChange={handleImageChange}
               initialImage={productToEdit?.image || ""}
             />
           </div>
