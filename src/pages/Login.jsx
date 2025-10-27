@@ -21,19 +21,28 @@ const Login = () => {
     //console.log(data);
     try {
       const response = await axios.post(`${apiUrl}/login`, data);
-      const { roleAdmin } = response.data;
+      const { userWithoutPassword,  token } = response.data;
+      console.log(userWithoutPassword.roleAdmin)
+       localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(userWithoutPassword));
       alert(
-        `¡Bienvenido, ${roleAdmin === "admin" ? "Administrador" : "Usuario"}!`
+        `¡Bienvenido, ${userWithoutPassword.roleAdmin === "admin" ? "Administrador" : "Usuario"}!`
       );
 
-      if (roleAdmin === "admin") {
+      if (userWithoutPassword.roleAdmin === "admin") {
         navigate("/admin");
-      } else if (roleAdmin === "user") {
+      } else if (userWithoutPassword.roleAdmin === "user") {
         navigate("/user");
       } else {
         navigate("/"); 
       }
-    } catch (error) {}
+    } catch (error) {
+       console.error(error);
+         setError(
+        error.response?.data?.message ||
+          "Error al iniciar sesión. Verifica tus credenciales."
+      );
+    }
   };
 
   return (
