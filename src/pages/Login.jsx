@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Navbar from "../components/NavBar/Navbar";
 import Footer from "../components/Footer/Footer";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+//import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const {
     register,
@@ -15,32 +17,45 @@ const Login = () => {
     formState: { errors },
   } = useForm({ mode: "all" });
 
-  const apiUrl = import.meta.env.VITE_API_MONGO_USERS;
+  //const apiUrl = import.meta.env.VITE_API_MONGO_USERS;
 
   const oneSubmit = async (data) => {
     //console.log(data);
     try {
-      const response = await axios.post(`${apiUrl}/login`, data);
-      const { userWithoutPassword,  token } = response.data;
-      console.log(userWithoutPassword.roleAdmin)
-       localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(userWithoutPassword));
-      alert(
+      //const response = await axios.post(`${apiUrl}/login`, data);
+      //const { userWithoutPassword, token } = response.data;
+      //console.log(userWithoutPassword.roleAdmin)
+      // localStorage.setItem("token", token);
+      // localStorage.setItem("user", JSON.stringify(userWithoutPassword));
+      /*alert(
         `¡Bienvenido, ${userWithoutPassword.roleAdmin === "admin" ? "Administrador" : "Usuario"}!`
-      );
+      );*/
 
-      if (userWithoutPassword.roleAdmin === "admin") {
-        navigate("/admin");
-      } else if (userWithoutPassword.roleAdmin === "user") {
-        navigate("/user");
-      } else {
-        navigate("/"); 
+      const { email, password } = data;
+      const result = await login(email, password);
+
+      if (result.success) {
+        const { user } = result;
+
+        alert(
+          `¡Bienvenido, ${
+            user.roleAdmin === "admin" ? "Administrador" : "Usuario"
+          }!`
+        );
+
+        if (user.roleAdmin === "admin") {
+          navigate("/admin");
+        } else if (user.roleAdmin === "user") {
+          navigate("/user");
+        } else {
+          navigate("/");
+        }
       }
     } catch (error) {
-       console.error(error);
-         setError(
-        error.response?.data?.message ||
-          "Error al iniciar sesión. Verifica tus credenciales."
+      console.error(error);
+      setError(
+         err?.response?.data?.message || err?.message || 
+    "Error al iniciar sesión. Verifica tus credenciales."
       );
     }
   };
