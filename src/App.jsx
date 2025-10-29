@@ -12,15 +12,25 @@ function App() {
   return (
     <>
       <Routes>
-          {/* Ruta pública */}
+        {/* Ruta pública */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="*" element={<NotFound/>}/>
-          {/* Ruta privada */}
-        <Route path="/admin" element={<AdminRoute>
-      <Admin />
-    </AdminRoute>} />
+        <Route path="*" element={<NotFound />} />
+
+        {/* Ruta privada */}
+
+        {/*//TODO: Ruta user*/}
+
+        {/* Ruta Admin */}
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <Admin />
+            </AdminRoute>
+          }
+        />
       </Routes>
     </>
   );
