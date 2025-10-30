@@ -21,7 +21,21 @@ const Register = () => {
   const oneSubmit = async (data) => {
     //const { email, password } = data;
     try {
-      const response = await axios.post(apiUrl, data);
+      const formData = new FormData();
+
+      // Agregar los campos de texto
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+
+      // Agregar archivo (si lo hay)
+      if (data.avatar && data.avatar[0]) {
+        formData.append("avatar", data.avatar[0]);
+      }
+
+      const response = await axios.post(apiUrl, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       Swal.fire({
         icon: "success",
         title: "Usuario agregado",
@@ -77,6 +91,18 @@ const Register = () => {
             )}
           </div>
           <div className="mb-3">
+            <label htmlFor="avatar" className="form-label">
+              Avatar
+            </label>
+            <input
+              type="file"
+              id="avatar"
+              accept="image/*"
+              className="form-control"
+              {...register("avatar")}
+            />
+          </div>
+          <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Correo electrónico
             </label>
@@ -129,3 +155,25 @@ const Register = () => {
 };
 
 export default Register;
+
+/*
+BACK
+TODO: Mostrar una previsualización del avatar
+TODO: // Filtro opcional para limitar tipos de archivos (solo imágenes)
+(Opcional) Validar tipos y tamaños de archivo
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
+  fileFilter: (req, file, cb) => {
+    const tipos = /jpeg|jpg|png|gif/;
+    const mime = tipos.test(file.mimetype);
+    const ext = tipos.test(path.extname(file.originalname).toLowerCase());
+
+    if (mime && ext) return cb(null, true);
+    cb(new Error('Solo se permiten imágenes'));
+  },
+});
+
+
+*/
