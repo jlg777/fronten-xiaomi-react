@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { AdminRoute } from "./components/PrivateRoute/AdminRoute";
+import User from "./pages/User";
 
 function App() {
   return (
@@ -18,9 +19,15 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
 
-        {/* Ruta privada */}
-
-        {/*//TODO: Ruta user*/}
+        {/* Ruta privada para usuarios */}
+        <Route
+          path="/user"
+          element={
+            <PrivateRoute>
+              <User />
+            </PrivateRoute>
+          }
+        />
 
         {/* Ruta Admin */}
         <Route

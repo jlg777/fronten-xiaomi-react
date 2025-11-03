@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 //import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -37,11 +38,16 @@ const Login = () => {
       if (result.success) {
         const { user } = result;
 
-        alert(
-          `¡Bienvenido, ${
-            user.roleAdmin === "admin" ? "Administrador" : "Usuario"
-          }!`
-        );
+       Swal.fire({
+        title: `¡Bienvenido, ${user.name}!`,
+        text: "Estamos felices de verte de nuevo",
+        imageUrl: user?.avatar || "https://via.placeholder.com/150",
+        imageWidth: 150,
+        imageHeight: 150,
+        imageAlt: "Avatar del usuario",
+        timer: 2000,
+        confirmButtonText: "Gracias",
+      });
 
         if (user.roleAdmin === "admin") {
           navigate("/admin");
