@@ -1,4 +1,3 @@
-
 export function formatDate(dateString, options = {}) {
   if (!dateString) return "Fecha inválida";
 

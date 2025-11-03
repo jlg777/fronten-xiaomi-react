@@ -44,7 +44,7 @@ export const UserImage = ({ onImageChange }) => {
       });
       return url;
     } catch (error) {
-       console.error("Error inesperado:", error);
+      console.error("Error inesperado:", error);
       Swal.fire({
         icon: "error",
         title: "Error al subir la imagen",

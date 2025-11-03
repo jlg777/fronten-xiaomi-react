@@ -26,7 +26,8 @@ export const ProductImage = ({ onImageChange, initialImage = "" }) => {
     }
   };
 
-  return (<div>
+  return (
+    <div>
       <input type="file" onChange={handleImageUpload} />
       {imageUrl && (
         <div className="mt-2">

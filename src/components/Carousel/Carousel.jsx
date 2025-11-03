@@ -33,18 +33,18 @@ const Carousel = () => {
         ))}
       </div>
       <div className="carousel-inner">
-        {images.map((image, index) =>(
-          <div 
-            key={index} 
+        {images.map((image, index) => (
+          <div
+            key={index}
             className={`carousel-item${index === 0 ? " active" : ""}`}
-            data-bs-interval="2000">
-
-          <img
-            src={image}
-            className="d-block w-100"
+            data-bs-interval="2000"
+          >
+            <img
+              src={image}
+              className="d-block w-100"
               alt={`image-Carousel-${index + 1}`}
-          />
-        </div>
+            />
+          </div>
         ))}
       </div>
       <button

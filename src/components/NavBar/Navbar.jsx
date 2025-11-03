@@ -63,30 +63,31 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className="nav-item">
-              {user?.roleAdmin ? (<NavLink
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-                to="/admin"
-              >
-                Admin
-              </NavLink>): ''}
-              
+              {user?.roleAdmin ? (
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                  to="/admin"
+                >
+                  Admin
+                </NavLink>
+              ) : (
+                ""
+              )}
             </li>
           </ul>
         </div>
 
         {isAuthenticated ? (
-          
-            <button
-             onClick={handleLogout}
-              id="userToggleBtn"
-              className="btn btn-outline-light ms-3"
-              title="Cerrar sesión"
-            >
-              <i className="bi bi-box-arrow-right"></i>
-            </button>
-        
+          <button
+            onClick={handleLogout}
+            id="userToggleBtn"
+            className="btn btn-outline-light ms-3"
+            title="Cerrar sesión"
+          >
+            <i className="bi bi-box-arrow-right"></i>
+          </button>
         ) : (
           <NavLink to="/login">
             <button
