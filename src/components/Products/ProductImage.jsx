@@ -6,7 +6,7 @@ export const ProductImage = ({ onImageChange, initialImage = "" }) => {
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-if (!file) return;
+    if (!file) return;
     //console.log(file);
     try {
       const formData = new FormData();
@@ -18,7 +18,7 @@ if (!file) return;
       );
       const url = result.data.secure_url;
       setImageUrl(url);
-      onImageChange(url)
+      onImageChange(url);
       //console.log(result.data.secure_url);
       return url;
     } catch (error) {
