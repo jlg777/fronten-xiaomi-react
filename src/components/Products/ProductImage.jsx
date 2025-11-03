@@ -22,10 +22,22 @@ export const ProductImage = ({ onImageChange, initialImage = "" }) => {
       //console.log(result.data.secure_url);
       return url;
     } catch (error) {
-      console.log(error);
+      console.error("Error inesperado:", error);
     }
   };
 
-  return <input type="file" onChange={handleImageUpload} />;
+  return (<div>
+      <input type="file" onChange={handleImageUpload} />
+      {imageUrl && (
+        <div className="mt-2">
+          <img
+            src={imageUrl}
+            alt="Vista previa del producto"
+            style={{ width: "100%", maxHeight: "200px", objectFit: "cover" }}
+          />
+        </div>
+      )}
+    </div>
+  );
 };
 export default ProductImage;

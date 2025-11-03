@@ -54,7 +54,7 @@ const Login = () => {
     } catch (error) {
       console.error(error);
       setError(
-         err?.response?.data?.message || err?.message || 
+         error?.response?.data?.message || error?.message || 
     "Error al iniciar sesión. Verifica tus credenciales."
       );
     }

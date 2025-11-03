@@ -5,11 +5,12 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import UserImage from "../components/Register/UserImage";
 
 const Register = () => {
   const [error, setError] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -19,23 +20,14 @@ const Register = () => {
   const apiUrl = import.meta.env.VITE_API_MONGO_USERS;
 
   const oneSubmit = async (data) => {
-    //const { email, password } = data;
     try {
-      const formData = new FormData();
-
-      // Agregar los campos de texto
-      formData.append("name", data.name);
-      formData.append("email", data.email);
-      formData.append("password", data.password);
-
-      // Agregar archivo (si lo hay)
-      if (data.avatar && data.avatar[0]) {
-        formData.append("avatar", data.avatar[0]);
-      }
-
-      const response = await axios.post(apiUrl, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const payload = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        avatar: avatarUrl,
+      };
+      await axios.post(apiUrl, payload);
       Swal.fire({
         icon: "success",
         title: "Usuario agregado",
@@ -46,12 +38,10 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       console.error(error);
-      if (error.response?.data?.details || error.response?.data?.error) {
-        const { error: title, details } = error.response.data;
-        setError(`${title}: ${details}`);
-      } else {
-        setError("Error en el registro. Intenta nuevamente.");
-      }
+      setError(
+        error.response?.data?.message ||
+          "Error en el registro. Intenta nuevamente."
+      );
     }
   };
 
@@ -94,13 +84,7 @@ const Register = () => {
             <label htmlFor="avatar" className="form-label">
               Avatar
             </label>
-            <input
-              type="file"
-              id="avatar"
-              accept="image/*"
-              className="form-control"
-              {...register("avatar")}
-            />
+            <UserImage onImageChange={setAvatarUrl} />
           </div>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
