@@ -18,7 +18,7 @@ const Register = () => {
   } = useForm({ mode: "all" });
 
   const apiUrl = import.meta.env.VITE_API_MONGO_USERS;
-console.log(avatarUrl)
+//console.log(avatarUrl)
   const oneSubmit = async (data) => {
     try {
       const payload = {
