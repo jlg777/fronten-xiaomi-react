@@ -3,9 +3,9 @@ import Navbar from "../components/NavBar/Navbar";
 import Footer from "../components/Footer/Footer";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Swal from "sweetalert2";
 import UserImage from "../components/Register/UserImage";
+import api from "../api/api";
 
 const Register = () => {
   const [error, setError] = useState("");
@@ -17,8 +17,6 @@ const Register = () => {
     formState: { errors },
   } = useForm({ mode: "all" });
 
-  const apiUrl = import.meta.env.VITE_API_MONGO_USERS;
-//console.log(avatarUrl)
   const oneSubmit = async (data) => {
     try {
       const payload = {
@@ -27,7 +25,7 @@ const Register = () => {
         password: data.password,
         avatar: avatarUrl,
       };
-      await axios.post(apiUrl, payload);
+      await api.post("",payload);
       Swal.fire({
         icon: "success",
         title: "Usuario agregado",

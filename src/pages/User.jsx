@@ -3,8 +3,8 @@ import Navbar from "../components/NavBar/Navbar";
 import Footer from "../components/Footer/Footer";
 import { AuthContext } from "../context/AuthContext";
 import UserImage from "../components/Register/UserImage";
-import axios from "axios";
 import Swal from "sweetalert2";
+import api from "../api/api";
 
 const User = () => {
   const { user, setUser, token } = useContext(AuthContext);
@@ -16,7 +16,6 @@ const User = () => {
     email: user?.email || "",
     password: "",
   });
-  const apiUrl = import.meta.env.VITE_API_MONGO_USERS;
   const [showModal, setShowModal] = useState(false);
   // Pedidos simulados
   const orders = [
@@ -54,7 +53,7 @@ const User = () => {
     setUploading(true);
     //console.log(user._id);
     try {
-      await axios.put(`${apiUrl}/${user._id}`, userData, {
+      await api.put(`/${user._id}`, userData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -75,7 +74,7 @@ const User = () => {
       Swal.fire({
         icon: "error",
         title: "Error al actualizar",
-        text: error.response?.data?.message || "Ocurrió un error inesperado",
+        text: error.response?.data?.error || "Ocurrió un error inesperado",
       });
     } finally {
       setUploading(false);

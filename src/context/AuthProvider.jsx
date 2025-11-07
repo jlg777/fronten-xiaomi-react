@@ -1,12 +1,11 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
+import api from "../api/api";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
-  const apiUrl = import.meta.env.VITE_API_MONGO_USERS;
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -21,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(`${apiUrl}/login`, { email, password });
+      const response = await api.post(`/login`, { email, password });
       const { userWithoutPassword, token } = response.data;
 
       localStorage.setItem("token", token);
