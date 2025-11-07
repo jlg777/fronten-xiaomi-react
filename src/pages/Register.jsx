@@ -138,24 +138,4 @@ const Register = () => {
 
 export default Register;
 
-/*
-BACK
-TODO: Mostrar una previsualización del avatar
-TODO: // Filtro opcional para limitar tipos de archivos (solo imágenes)
-(Opcional) Validar tipos y tamaños de archivo
 
-const upload = multer({
-  storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
-  fileFilter: (req, file, cb) => {
-    const tipos = /jpeg|jpg|png|gif/;
-    const mime = tipos.test(file.mimetype);
-    const ext = tipos.test(path.extname(file.originalname).toLowerCase());
-
-    if (mime && ext) return cb(null, true);
-    cb(new Error('Solo se permiten imágenes'));
-  },
-});
-
-
-*/
