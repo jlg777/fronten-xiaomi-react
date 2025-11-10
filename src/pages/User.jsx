@@ -29,6 +29,29 @@ const User = () => {
     { id: 3, product: "Mi Band 6", date: "2025-08-30", status: "Entregado" },
   ];
   //console.log(user.name)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await api.get("/user"); // authMiddleware valida token
+        setUser(res.data.user);
+      } catch (err) {
+        console.error("Token inválido o expirado", err);
+      }
+    };
+    fetchUser();
+    // Configurar intervalo para chequear cada 5 minutos (300000 ms)
+    const interval = setInterval(() => {
+      const continuar = window.confirm("✔ Sesión válida. ¿Deseas continuar?");
+      if (!continuar) {
+        fetchUser();
+      }
+    }, 300000);
+    
+    // Limpiar intervalo al desmontar
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     if (avatarUrl) {
       setUserData((prev) => ({ ...prev, avatar: avatarUrl }));
@@ -37,7 +60,7 @@ const User = () => {
 
   const closeModal = () => {
     setShowModal(false);
-    
+
     setAvatarUrl("");
   };
 
