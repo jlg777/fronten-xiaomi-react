@@ -6,7 +6,7 @@ import ProductImage from "./ProductImage.jsx";
 
 const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
   const [loading, setLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
+  //const [selectedImage, setSelectedImage] = useState("");
 
   const {
     register,
@@ -25,10 +25,9 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
     }
   }, [productToEdit, reset]);
 
-
-const handleImageChange = (url) => {
+  const handleImageChange = (url) => {
     setValue("image", url, { shouldValidate: true, shouldDirty: true });
-}
+  };
 
   const onSubmit = async (data) => {
     //console.log(data);
@@ -74,9 +73,10 @@ const handleImageChange = (url) => {
       }
 
       reset();
-      setSelectedImage("");
+      //setSelectedImage("");
       await refetch();
     } catch (error) {
+      console.error("Error inesperado:", error);
       Swal.fire({
         icon: "error",
         title: "Error",

@@ -6,7 +6,7 @@ export const ProductImage = ({ onImageChange, initialImage = "" }) => {
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-if (!file) return;
+    if (!file) return;
     //console.log(file);
     try {
       const formData = new FormData();
@@ -18,14 +18,27 @@ if (!file) return;
       );
       const url = result.data.secure_url;
       setImageUrl(url);
-      onImageChange(url)
+      onImageChange(url);
       //console.log(result.data.secure_url);
       return url;
     } catch (error) {
-      console.log(error);
+      console.error("Error inesperado:", error);
     }
   };
 
-  return <input type="file" onChange={handleImageUpload} />;
+  return (
+    <div>
+      <input type="file" onChange={handleImageUpload} />
+      {imageUrl && (
+        <div className="mt-2">
+          <img
+            src={imageUrl}
+            alt="Vista previa del producto"
+            style={{ width: "100%", maxHeight: "200px", objectFit: "cover" }}
+          />
+        </div>
+      )}
+    </div>
+  );
 };
 export default ProductImage;

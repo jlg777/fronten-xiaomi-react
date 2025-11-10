@@ -3,8 +3,8 @@ import Navbar from "../components/NavBar/Navbar";
 import Footer from "../components/Footer/Footer";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-//import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -17,31 +17,24 @@ const Login = () => {
     formState: { errors },
   } = useForm({ mode: "all" });
 
-  //const apiUrl = import.meta.env.VITE_API_MONGO_USERS;
-
   const oneSubmit = async (data) => {
-    //console.log(data);
     try {
-      //const response = await axios.post(`${apiUrl}/login`, data);
-      //const { userWithoutPassword, token } = response.data;
-      //console.log(userWithoutPassword.roleAdmin)
-      // localStorage.setItem("token", token);
-      // localStorage.setItem("user", JSON.stringify(userWithoutPassword));
-      /*alert(
-        `¡Bienvenido, ${userWithoutPassword.roleAdmin === "admin" ? "Administrador" : "Usuario"}!`
-      );*/
-
       const { email, password } = data;
       const result = await login(email, password);
 
       if (result.success) {
         const { user } = result;
 
-        alert(
-          `¡Bienvenido, ${
-            user.roleAdmin === "admin" ? "Administrador" : "Usuario"
-          }!`
-        );
+        Swal.fire({
+          title: `¡Bienvenido, ${user.name}!`,
+          text: "Estamos felices de verte de nuevo",
+          imageUrl: user?.avatar || "https://via.placeholder.com/150",
+          imageWidth: 150,
+          imageHeight: 150,
+          imageAlt: "Avatar del usuario",
+          timer: 2000,
+          confirmButtonText: "Gracias",
+        });
 
         if (user.roleAdmin === "admin") {
           navigate("/admin");
@@ -54,8 +47,9 @@ const Login = () => {
     } catch (error) {
       console.error(error);
       setError(
-         err?.response?.data?.message || err?.message || 
-    "Error al iniciar sesión. Verifica tus credenciales."
+        error?.response?.data?.message ||
+          error?.message ||
+          "Error al iniciar sesión. Verifica tus credenciales."
       );
     }
   };

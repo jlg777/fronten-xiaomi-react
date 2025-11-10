@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Navbar = () => {
   const { isAuthenticated, logout, user } = useContext(AuthContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -12,31 +14,35 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg header-nav">
+    <nav className="navbar navbar-expand-lg header-nav shadow-sm">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          <i className="bi bi-phone-fill"></i> Digitalers Xiaomi
+        {/* Marca / Logo */}
+        <Link className="navbar-brand fw-semibold" to="/">
+          <i className="bi bi-phone-fill me-2"></i> Digitalers Xiaomi
         </Link>
+
+        {/* Botón hamburguesa responsive */}
         <button
-          className="navbar-toggler border-white"
+          className="navbar-toggler border-0 text-light"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
           aria-controls="navbarNav"
           aria-expanded="false"
-          aria-label="Toggle navigation"
+          aria-label="Abrir menú de navegación"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
+        {/* Links principales */}
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+          <ul className="navbar-nav me-auto">
             <li className="nav-item">
               <NavLink
-                aria-current="page"
                 to="/"
                 end
                 className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
+                  "nav-link" + (isActive ? " active" : "")
                 }
               >
                 Principal
@@ -44,68 +50,92 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
                 to="/productos"
+                className={({ isActive }) =>
+                  "nav-link" + (isActive ? " active" : "")
+                }
               >
                 Productos
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
                 to="/nosotros"
+                className={({ isActive }) =>
+                  "nav-link" + (isActive ? " active" : "")
+                }
               >
                 Nosotros
               </NavLink>
             </li>
-            <li className="nav-item">
-              {user?.roleAdmin ? (<NavLink
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-                to="/admin"
-              >
-                Admin
-              </NavLink>): ''}
-              
-            </li>
+
+            {user?.roleAdmin === "admin" && (
+              <li className="nav-item">
+                <NavLink
+                  to="/admin"
+                  className={({ isActive }) =>
+                    "nav-link" + (isActive ? " active" : "")
+                  }
+                >
+                  Admin
+                </NavLink>
+              </li>
+            )}
+            {user?.roleAdmin === "user" && (
+              <li className="nav-item">
+                <NavLink
+                  to="/user"
+                  className={({ isActive }) =>
+                    "nav-link" + (isActive ? " active" : "")
+                  }
+                >
+                  Usuario
+                </NavLink>
+              </li>
+            )}
           </ul>
+
+          {/* Botones a la derecha */}
+          <div className="d-flex align-items-center">
+            {isAuthenticated ? (
+              <button
+                onClick={handleLogout}
+                id="userToggleBtn"
+                className="btn btn-outline-light ms-3"
+                title="Cerrar sesión"
+                aria-label="Cerrar sesión"
+              >
+                <i className="bi bi-box-arrow-right"></i>
+              </button>
+            ) : (
+              <NavLink to="/login" className="ms-3">
+                <button
+                  id="userToggleBtn"
+                  className="btn btn-outline-light"
+                  title="Iniciar sesión"
+                  aria-label="Iniciar sesión"
+                >
+                  <i className="bi bi-person-circle"></i>
+                </button>
+              </NavLink>
+            )}
+
+            {/* BOTÓN DE CAMBIO DE TEMA */}
+            <button
+              onClick={toggleTheme}
+              id="themeToggleBtn"
+              className="btn btn-outline-light ms-3 btn-theme-toggle"
+              title="Cambiar tema"
+              aria-label="Cambiar tema"
+            >
+              {theme === "dark" ? (
+                <i className="bi bi-sun-fill"></i>
+              ) : (
+                <i className="bi bi-moon-fill"></i>
+              )}
+            </button>
+          </div>
         </div>
-
-        {isAuthenticated ? (
-          
-            <button
-             onClick={handleLogout}
-              id="userToggleBtn"
-              className="btn btn-outline-light ms-3"
-              title="Cerrar sesión"
-            >
-              <i className="bi bi-box-arrow-right"></i>
-            </button>
-        
-        ) : (
-          <NavLink to="/login">
-            <button
-              id="userToggleBtn"
-              className="btn btn-outline-light ms-3"
-              title="Login de usuario"
-            >
-              <i className="bi bi-person-circle"></i>
-            </button>
-          </NavLink>
-        )}
-
-        <button
-          id="themeToggleBtn"
-          className="btn btn-outline-light ms-3 btn-theme-toggle"
-          title="Cambiar tema"
-        >
-          <i className="bi bi-moon-fill"></i>
-        </button>
       </div>
     </nav>
   );

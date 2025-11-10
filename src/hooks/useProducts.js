@@ -1,33 +1,40 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const useProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const apiUrl = import.meta.env.VITE_API_MONGO;
-  //console.log(apiUrl);
-  const fetchProducts = async () => {
+
+  const fetchProducts = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+
     try {
       const response = await axios.get(apiUrl);
       setProducts(response.data);
-      setLoading(false);
     } catch (err) {
+      console.error("Error al cargar productos:", err);
+      setError(err);
       Swal.fire({
         title: "Error al cargar productos",
-        text: "Ocurrió un problema al obtener los productos.",
+        text:
+          err.response?.data?.message ||
+          "Ocurrió un problema al obtener los productos.",
         icon: "error",
         confirmButtonText: "Entendido",
       });
-      setError(err);
+    } finally {
       setLoading(false);
     }
-  };
+  }, [apiUrl]);
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
   return { products, loading, error, refetch: fetchProducts };
 };
