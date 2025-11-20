@@ -28,16 +28,19 @@ export const ProductImage = ({ onImageChange, initialImage = "" }) => {
 
   return (
     <div>
-      <input type="file" onChange={handleImageUpload} />
-      {imageUrl && (
-        <div className="mt-2">
-          <img
-            src={imageUrl}
-            alt="Vista previa del producto"
-            style={{ width: "100%", maxHeight: "200px", objectFit: "cover" }}
-          />
-        </div>
-      )}
+      <label className="custom-file-upload">
+        Seleccionar imagen
+        <input type="file" onChange={handleImageUpload} />
+        {imageUrl && (
+          <div className="mt-2">
+            <img
+              src={imageUrl}
+              alt="Vista previa del producto"
+              style={{ width: "100%", maxHeight: "200px", objectFit: "cover" }}
+            />
+          </div>
+        )}
+      </label>
     </div>
   );
 };

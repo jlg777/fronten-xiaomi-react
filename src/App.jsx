@@ -33,9 +33,9 @@ function App() {
         <Route
           path="/admin"
           element={
-            <AdminRoute>
+            //<AdminRoute>
               <Admin />
-            </AdminRoute>
+            //</AdminRoute>
           }
         />
       </Routes>
