@@ -1,31 +1,40 @@
-const Pagination = () => {
+const Pagination = ({ totalPages, currentPage, setCurrentPage }) => {
+  const buttons = [];
+  for (let index = 1; index <= totalPages; index++) {
+    buttons.push(
+      <li
+        className={`page-item ${currentPage === index ? "active" : ""}`}
+        key={index}
+      >
+        <button className="page-link" onClick={() => setCurrentPage(index)}>
+          {index}
+        </button>
+      </li>
+    );
+  }
   return (
     <nav aria-label="Page navigation example">
       <ul className="pagination">
         <li className="page-item">
-          <a className="page-link" href="#">
+          <button
+            className="page-link"
+            onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
             Previous
-          </a>
+          </button>
         </li>
+        {buttons}
         <li className="page-item">
-          <a className="page-link" href="#">
-            1
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#">
-            2
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#">
-            3
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#">
+          <button
+            className="page-link"
+            onClick={() =>
+              currentPage < totalPages && setCurrentPage(currentPage + 1)
+            }
+            disabled={currentPage === totalPages}
+          >
             Next
-          </a>
+          </button>
         </li>
       </ul>
     </nav>

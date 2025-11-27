@@ -9,7 +9,7 @@ import "../css/layout.css";
 import useProducts from "../hooks/useProducts";
 
 const Admin = () => {
-  const { products, loading, error, refetch } = useProducts();
+  const { products, loading, error, refetch, totalPages, currentPage, setCurrentPage } = useProducts();
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [productToEdit, setProductToEdit] = useState(null);
 
@@ -60,6 +60,9 @@ const Admin = () => {
                 error={error}
                 refetch={refetch}
                 onEdit={setProductToEdit}
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
               />
             </div>
           </div>
