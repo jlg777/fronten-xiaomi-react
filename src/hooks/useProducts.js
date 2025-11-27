@@ -4,8 +4,10 @@ import Swal from "sweetalert2";
 
 const useProducts = () => {
   const [products, setProducts] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const apiUrl = import.meta.env.VITE_API_MONGO;
 
@@ -14,8 +16,9 @@ const useProducts = () => {
     setError(null);
 
     try {
-      const response = await axios.get(apiUrl);
-      setProducts(response.data);
+      const response = await axios.get(`${apiUrl}?limit=1&page=${currentPage}`);
+      setProducts(response.data.products);
+      setTotalPages(response.data.totalPages);
     } catch (err) {
       console.error("Error al cargar productos:", err);
       setError(err);
@@ -30,13 +33,21 @@ const useProducts = () => {
     } finally {
       setLoading(false);
     }
-  }, [apiUrl]);
+  }, [apiUrl, currentPage]);
 
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
 
-  return { products, loading, error, refetch: fetchProducts };
+  return {
+    products,
+    loading,
+    error,
+    refetch: fetchProducts,
+    totalPages,
+    currentPage,
+    setCurrentPage,
+  };
 };
 
 export default useProducts;

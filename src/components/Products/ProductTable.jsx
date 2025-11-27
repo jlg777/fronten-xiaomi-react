@@ -3,7 +3,16 @@ import { formatDate } from "../../utils/localDate";
 import axios from "axios";
 import Pagination from "../Pagination/Pagination";
 
-const ProductTable = ({ products = [], loading, error, refetch, onEdit }) => {
+const ProductTable = ({
+  products = [],
+  loading,
+  error,
+  refetch,
+  onEdit,
+  totalPages,
+  setCurrentPage,
+  currentPage,
+}) => {
   const apiUrl = import.meta.env.VITE_API_MONGO;
 
   // Validación adicional para asegurar que products sea un array
@@ -119,7 +128,11 @@ const ProductTable = ({ products = [], loading, error, refetch, onEdit }) => {
         </tbody>
       </table>
       <div className="d-flex justify-content-center my-3">
-        <Pagination />
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </>
   );
