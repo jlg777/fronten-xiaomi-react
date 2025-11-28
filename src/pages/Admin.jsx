@@ -9,7 +9,8 @@ import "../css/layout.css";
 import useProducts from "../hooks/useProducts";
 
 const Admin = () => {
-  const { products, loading, error, refetch, totalPages, currentPage, setCurrentPage } = useProducts();
+  const [category, setCategory] = useState("all");
+  const { products, loading, error, refetch, totalPages, currentPage, setCurrentPage } = useProducts(category);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [productToEdit, setProductToEdit] = useState(null);
 
@@ -27,9 +28,11 @@ const Admin = () => {
 
     let filtered = products;
 
-    if (category && category !== "all") {
+    /*if (category && category !== "all") {
       filtered = filtered.filter((p) => p.category === category);
-    }
+    }*/
+
+    setCategory(category);
 
     if (searchTerm && searchTerm.trim() !== "") {
       filtered = filtered.filter((p) =>

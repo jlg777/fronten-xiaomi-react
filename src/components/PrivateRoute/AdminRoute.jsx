@@ -8,20 +8,17 @@ export const AdminRoute = ({ children }) => {
   //console.log(isAuthenticated)
   if (loading) return <div>Cargando...</div>;
 
-  
-
   if (!isAuthenticated || !token) return <Navigate to="/login" />;
 
-  // Verificar expiración del token
   try {
-    const decoded = jwt_decode.default(token); // decodifica el JWT
-    const now = Date.now() / 1000; // tiempo actual en segundos
+    const decoded = jwt_decode.default(token); 
+    const now = Date.now() / 1000; 
     if (decoded.exp < now) {
       localStorage.removeItem("token");
       return <Navigate to="/login" />;
     }
   } catch (error) {
-    // Token inválido
+    console.error("Error decodificando token:", error);
     localStorage.removeItem("token");
     return <Navigate to="/login" />;
   }
