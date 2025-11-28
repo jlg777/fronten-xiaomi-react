@@ -2,7 +2,7 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-const useProducts = () => {
+const useProducts = (category) => {
   const [products, setProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -16,7 +16,9 @@ const useProducts = () => {
     setError(null);
 
     try {
-      const response = await axios.get(`${apiUrl}?limit=1&page=${currentPage}`);
+      let url = `${apiUrl}?limit=1&page=${currentPage}`;
+      if (category && category !== "all") url += `&category=${category}`;
+      const response = await axios.get(url);
       setProducts(response.data.products);
       setTotalPages(response.data.totalPages);
     } catch (err) {
@@ -33,7 +35,7 @@ const useProducts = () => {
     } finally {
       setLoading(false);
     }
-  }, [apiUrl, currentPage]);
+  }, [apiUrl, currentPage, category]);
 
   useEffect(() => {
     fetchProducts();

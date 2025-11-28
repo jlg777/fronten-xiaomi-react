@@ -50,7 +50,7 @@ const User = () => {
     
     // Limpiar intervalo al desmontar
     return () => clearInterval(interval);
-  }, []);
+  }, [setUser]);
 
   useEffect(() => {
     if (avatarUrl) {
