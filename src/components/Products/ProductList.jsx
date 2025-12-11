@@ -40,6 +40,8 @@ const products = [
 ];
 
 const ProductList = () => {
+
+  
   return (
     <section className="section-productos">
       <h2 className="section-productos-title">Productos destacados</h2>
