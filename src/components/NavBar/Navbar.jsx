@@ -98,15 +98,27 @@ const Navbar = () => {
           {/* Botones a la derecha */}
           <div className="d-flex align-items-center">
             {isAuthenticated ? (
-              <button
-                onClick={handleLogout}
-                id="userToggleBtn"
-                className="btn btn-outline-light ms-3"
-                title="Cerrar sesión"
-                aria-label="Cerrar sesión"
-              >
-                <i className="bi bi-box-arrow-right"></i>
-              </button>
+              <div>
+                <NavLink to="/ShoppingCart" className="ms-3">
+                  <button
+                    id="userToggleBtn"
+                    className="btn btn-outline-light ms-3"
+                    title="Shopping cart"
+                    aria-label="Shopping cart"
+                  >
+                    <i class="bi bi-cart"></i>
+                  </button>
+                </NavLink>
+                <button
+                  onClick={handleLogout}
+                  id="userToggleBtn"
+                  className="btn btn-outline-light ms-3"
+                  title="Cerrar sesión"
+                  aria-label="Cerrar sesión"
+                >
+                  <i className="bi bi-box-arrow-right"></i>
+                </button>
+              </div>
             ) : (
               <NavLink to="/login" className="ms-3">
                 <button
