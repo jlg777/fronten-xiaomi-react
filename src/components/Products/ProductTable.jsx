@@ -91,40 +91,52 @@ const ProductTable = ({
           </tr>
         </thead>
         <tbody>
-          {safeProducts.map((prod) => (
-            <tr key={prod._id}>
-              <th scope="row">{prod._id}</th>
-              <td>{prod.name}</td>
-              <td>
-                <img
-                  src={prod.image}
-                  alt={`Imagen de ${prod.name}`}
-                  style={{ width: "10rem", height: "8rem", objectFit: "cover" }}
-                  className="rounded"
-                />
-              </td>
-              <td>{prod.price}</td>
-              <td>{prod.category}</td>
-              <td>{prod.description}</td>
-              <td>{formatDate(prod.createdAt)}</td>
-              <td>
-                <button
-                  type="button"
-                  className="btn btn-outline-primary me-2"
-                  onClick={() => onEdit(prod)}
-                >
-                  <i className="bi bi-pencil"></i>
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-outline-danger"
-                  onClick={() => onDelete(prod._id)}
-                >
-                  <i className="bi bi-trash-fill"></i>
-                </button>
+          {safeProducts.length === 0 ? (
+            <tr>
+              <td colSpan="8" className="text-center py-4">
+                No hay productos disponibles.
               </td>
             </tr>
-          ))}
+          ) : (
+            safeProducts.map((prod) => (
+              <tr key={prod._id}>
+                <th scope="row">{prod._id}</th>
+                <td>{prod.name}</td>
+                <td>
+                  <img
+                    src={prod.image}
+                    alt={`Imagen de ${prod.name}`}
+                    style={{
+                      width: "10rem",
+                      height: "8rem",
+                      objectFit: "cover",
+                    }}
+                    className="rounded"
+                  />
+                </td>
+                <td>{prod.price}</td>
+                <td>{prod.category}</td>
+                <td>{prod.description}</td>
+                <td>{formatDate(prod.createdAt)}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="btn btn-outline-primary me-2"
+                    onClick={() => onEdit(prod)}
+                  >
+                    <i className="bi bi-pencil"></i>
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-outline-danger"
+                    onClick={() => onDelete(prod._id)}
+                  >
+                    <i className="bi bi-trash-fill"></i>
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
       <div className="d-flex justify-content-center my-3">

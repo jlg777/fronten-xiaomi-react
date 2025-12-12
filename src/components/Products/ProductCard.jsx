@@ -19,7 +19,7 @@ const ProductCard = ({ title, description, price, image }) => {
           >
             Comprar
           </button>
-          <button className="btn btn-dark">fav</button>
+          <button className="btn btn-dark" onClick= {() => removeFromCart(id)}>fav</button>
         </footer>
       </div>
     </article>
