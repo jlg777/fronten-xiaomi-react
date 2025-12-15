@@ -69,7 +69,7 @@ const Register = () => {
               {...register("name", {
                 required: "El nombre es obligatorio",
                 pattern: {
-                  value: /^[a-zA-Z0-9_]+$/,
+                  value: /^[a-zA-Z]+(\s[a-zA-Z]+)+$/,
                   message: "Nombre no válido",
                 },
               })}

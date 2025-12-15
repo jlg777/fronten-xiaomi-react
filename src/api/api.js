@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_MONGO_USERS,
+  baseURL: import.meta.env.VITE_API_MONGO_USERS_PROD,
 });
 
 // Interceptor para agregar token
