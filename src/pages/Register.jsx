@@ -16,16 +16,18 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "all" });
+  const [loading, setLoading] = useState(false);
 
   const oneSubmit = async (data) => {
     try {
+      setLoading(true)
       const payload = {
         name: data.name,
         email: data.email,
         password: data.password,
-        avatar: avatarUrl,
+        avatar: avatarUrl || null,
       };
-      await api.post("",payload);
+      await api.post("/user", payload);
       Swal.fire({
         icon: "success",
         title: "Usuario agregado",
@@ -35,11 +37,21 @@ const Register = () => {
       });
       navigate("/login");
     } catch (error) {
-      console.error(error);
-      setError(
-        error.response?.data?.message ||
-          "Error en el registro. Intenta nuevamente."
-      );
+console.error(error?.response?.data);
+ const backendError = error.response?.data;
+    let errorMessage = "Error en el registro. Intenta nuevamente.";
+
+    if (backendError) {
+      if (backendError.error) {
+        errorMessage = backendError.error;
+      } else if (backendError.errors) {
+        errorMessage = backendError.errors.join(", ");
+      }
+    }
+
+    setError(errorMessage);
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -126,8 +138,19 @@ const Register = () => {
           </div>
 
           {error && <div className="alert alert-danger">{error}</div>}
-          <button type="submit" className="btn btn-primary w-100">
-            Registrarse
+          <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+            {loading ? (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                Ingresando...
+              </>
+            ) : (
+              "Registrarse"
+            )}
           </button>
         </form>
       </div>
@@ -137,5 +160,3 @@ const Register = () => {
 };
 
 export default Register;
-
-

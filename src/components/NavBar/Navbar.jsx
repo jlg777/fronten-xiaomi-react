@@ -106,7 +106,7 @@ const Navbar = () => {
                     title="Shopping cart"
                     aria-label="Shopping cart"
                   >
-                    <i class="bi bi-cart"></i>
+                    <i className="bi bi-cart"></i>
                   </button>
                 </NavLink>
                 <button

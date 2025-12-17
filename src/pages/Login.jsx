@@ -10,6 +10,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -19,12 +20,12 @@ const Login = () => {
 
   const oneSubmit = async (data) => {
     try {
+      setLoading(true);
       const { email, password } = data;
       const result = await login(email, password);
 
       if (result.success) {
         const { user } = result;
-
         Swal.fire({
           title: `¡Bienvenido, ${user.name}!`,
           text: "Estamos felices de verte de nuevo",
@@ -35,7 +36,6 @@ const Login = () => {
           timer: 2000,
           confirmButtonText: "Gracias",
         });
-
         if (user.roleAdmin === "admin") {
           navigate("/admin");
         } else if (user.roleAdmin === "user") {
@@ -51,6 +51,8 @@ const Login = () => {
           error?.message ||
           "Error al iniciar sesión. Verifica tus credenciales."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -111,8 +113,23 @@ const Login = () => {
           </div>
 
           {error && <div className="alert alert-danger">{error}</div>}
-          <button type="submit" className="btn btn-primary w-100">
-            Ingresar
+          <button
+            type="submit"
+            className="btn btn-primary w-100"
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                Ingresando...
+              </>
+            ) : (
+              "Ingresar"
+            )}
           </button>
           <div className="text-center mt-3">
             ¿No tienes cuenta?{" "}
