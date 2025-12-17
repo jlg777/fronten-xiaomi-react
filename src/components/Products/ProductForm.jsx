@@ -20,7 +20,6 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
 
   useEffect(() => {
     if (productToEdit) {
-      //console.log(productToEdit._id);
       reset(productToEdit);
     }
   }, [productToEdit, reset]);
@@ -30,7 +29,6 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
   };
 
   const onSubmit = async (data) => {
-    //console.log(data);
     setLoading(true);
     try {
       if (productToEdit) {
