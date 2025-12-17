@@ -81,7 +81,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
             )}
-            {user?.roleAdmin === "user" && (
+            {user?.roleAdmin === "user" || user?.roleAdmin === "admin" && (
               <li className="nav-item">
                 <NavLink
                   to="/user"
