@@ -3,7 +3,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 //import Spinner from 'react-bootstrap/Spinner';
 
-export const UserImage = ({ onImageChange }) => {
+const UserImage = ({ onImageChange }) => {
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
 
@@ -14,7 +14,7 @@ export const UserImage = ({ onImageChange }) => {
     if (!file.type.startsWith("image/")) {
       Swal.fire({
         icon: "error",
-        title: "Usuario agregado",
+        title: "Archivo inválido",
         text: "Por favor selecciona un archivo de imagen (jpg, png, etc.)",
         confirmButtonColor: "#d33",
       });
@@ -28,13 +28,16 @@ export const UserImage = ({ onImageChange }) => {
       formData.append("upload_preset", "preset_xiaomi");
       const result = await axios.post(
         "https://api.cloudinary.com/v1_1/dogs9oddm/image/upload",
-        formData
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       const url = result.data.secure_url;
       setImageUrl(url);
-      onImageChange(url);
-      //console.log(result.data.secure_url);
-
+      if (onImageChange) onImageChange(url);
       Swal.fire({
         icon: "success",
         title: "Imagen subida correctamente",
@@ -42,7 +45,6 @@ export const UserImage = ({ onImageChange }) => {
         timer: 1500,
         showConfirmButton: false,
       });
-      return url;
     } catch (error) {
       console.error("Error inesperado:", error);
       Swal.fire({
@@ -58,8 +60,15 @@ export const UserImage = ({ onImageChange }) => {
 
   return (
     <div>
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
-      {uploading && <div className="spinner-border" role="status"></div>}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+        disabled={uploading}
+      />
+      {uploading && (
+        <div className="spinner-border" role="status" aria-label="Cargando" />
+      )}
       {imageUrl && (
         <img
           src={imageUrl}
