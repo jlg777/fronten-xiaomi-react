@@ -1,13 +1,11 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import ProductImage from "./ProductImage.jsx";
+import api from "../../api/api.js";
 
 const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
   const [loading, setLoading] = useState(false);
-  //const [selectedImage, setSelectedImage] = useState("");
-
   const {
     register,
     handleSubmit,
@@ -41,7 +39,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
           cancelButtonText: "Cancelar",
         });
         if (result.isConfirmed) {
-          await axios.put(`${apiUrl}/${productToEdit._id}`, data);
+          await api.put(`${apiUrl}/${productToEdit._id}`, data);
           Swal.fire({
             icon: "success",
             title: "Editado",
@@ -60,7 +58,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
           description: "",
         });
       } else {
-        await axios.post(apiUrl, data);
+        await api.post(apiUrl, data);
         Swal.fire({
           icon: "success",
           title: "Producto agregado",
@@ -71,7 +69,6 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
       }
 
       reset();
-      //setSelectedImage("");
       await refetch();
     } catch (error) {
       console.error("Error inesperado:", error);
