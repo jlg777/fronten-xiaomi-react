@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import { formatDate } from "../../utils/localDate";
-import axios from "axios";
 import Pagination from "../Pagination/Pagination";
+import api from "../../api/api";
 
 const ProductTable = ({
   products = [],
@@ -61,7 +61,7 @@ const ProductTable = ({
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`${apiUrl}/${id}`);
+        await api.delete(`${apiUrl}/${id}`);
         Swal.fire(
           "Eliminado",
           "El producto fue eliminado correctamente",

@@ -9,14 +9,14 @@ import CartProvider from "./context/CartProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthProvider>
-      <ThemeProvider>
-        <BrowserRouter>
-        <CartProvider>
-          <App />
+    <BrowserRouter>
+      <AuthProvider>
+        <ThemeProvider>
+          <CartProvider>
+            <App />
           </CartProvider>
-        </BrowserRouter>
-      </ThemeProvider>
-    </AuthProvider>
+        </ThemeProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </StrictMode>
 );
