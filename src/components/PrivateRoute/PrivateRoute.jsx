@@ -8,9 +8,5 @@ export const PrivateRoute = ({ children }) => {
 
   if (!isAuthenticated || !token) return <Navigate to="/login" />;
 
-  if (!isAuthenticated || user?.roleAdmin !== "user") {
-    return <Navigate to="/" />;
-  }
-
   return children;
 };
