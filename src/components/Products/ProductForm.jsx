@@ -16,7 +16,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
     formState: { errors, isValid },
   } = useForm({ mode: "all" });
 
-  const apiUrl = import.meta.env.VITE_API_MONGO_USERS;
+  const apiUrl = import.meta.env.VITE_API_MONDO_PRODUCTS;
 
   useEffect(() => {
     if (productToEdit) {

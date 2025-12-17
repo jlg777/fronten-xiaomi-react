@@ -13,7 +13,7 @@ const ProductTable = ({
   setCurrentPage,
   currentPage,
 }) => {
-  const apiUrl = import.meta.env.VITE_API_MONGO;
+  const apiUrl = import.meta.env.VITE_API_MONDO_PRODUCTS;
 
   // Validación adicional para asegurar que products sea un array
   const safeProducts = Array.isArray(products) ? products : [];
