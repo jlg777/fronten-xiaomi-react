@@ -17,7 +17,6 @@ const useProducts = (category) => {
 
     try {
       let url = `${apiUrl}?limit=1&page=${currentPage}`;
-      console.log(url);
       if (category && category !== "all") url += `&category=${category}`;
       const response = await axios.get(url);
       setProducts(response.data.products);

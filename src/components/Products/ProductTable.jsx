@@ -49,7 +49,6 @@ const ProductTable = ({
   }
 
   const onDelete = async (id) => {
-    console.log(id);
     const result = await Swal.fire({
       title: "¿Estás seguro?",
       text: "Esta acción eliminará el producto de forma permanente.",
