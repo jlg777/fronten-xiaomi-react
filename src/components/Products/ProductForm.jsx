@@ -5,6 +5,7 @@ import ProductImage from "./ProductImage.jsx";
 import api from "../../api/api.js";
 
 const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
+  const [imageKey, setImageKey] = useState(0);
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -49,14 +50,6 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
           });
         }
         setProductToEdit(null);
-
-        reset({
-          name: "",
-          image: "",
-          price: "",
-          category: "",
-          description: "",
-        });
       } else {
         await api.post(apiUrl, data);
         Swal.fire({
@@ -67,8 +60,14 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
           showConfirmButton: false,
         });
       }
-
-      reset();
+      reset({
+        name: "",
+        image: "",
+        price: "",
+        category: "",
+        description: "",
+      });
+      setImageKey((prev) => prev + 1);
       await refetch();
     } catch (error) {
       console.error("Error inesperado:", error);
@@ -112,6 +111,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
               Imagen del Producto
             </label>
             <ProductImage
+              key={imageKey}
               onImageChange={handleImageChange}
               initialImage={productToEdit?.image || ""}
             />
@@ -224,6 +224,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
                     description: "",
                   });
                   setProductToEdit(null);
+                  setImageKey((prev) => prev + 1);
                 }}
               >
                 Cancelar edición
