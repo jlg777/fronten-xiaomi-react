@@ -6,18 +6,18 @@ const initialState = [];
 const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
-      const itemExists = state.find((item) => item.id === action.payload.id);
+      const itemExists = state.find((item) => item._id === action.payload._id);
 
       if (itemExists) {
         return state.map((item) =>
-          item.id === action.payload.id ? { ...item, qty: item.qty + 1 } : item
+          item._id === action.payload._id ? { ...item, qty: item.qty + 1 } : item
         );
       }
 
       return [...state, { ...action.payload, qty: 1 }];
 
     case "REMOVE_FROM_CART":
-      return state.filter((item) => item.id !== action.payload);
+      return state.filter((item) => item._id !== action.payload);
 
     default:
       return state;
