@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import useProducts from "../../hooks/useProducts";
 import ProductCard from "./ProductCard";
 
 const products = [
@@ -40,15 +42,11 @@ const products = [
 ];
 
 const ProductList = () => {
-
-  
   return (
     <section className="section-productos">
       <h2 className="section-productos-title">Productos destacados</h2>
       <section className="section-productos-cards row">
-        {products.map((product, index) => (
-          <ProductCard key={index} {...product} />
-        ))}
+        <ProductCard />
       </section>
     </section>
   );
