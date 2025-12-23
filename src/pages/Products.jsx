@@ -5,7 +5,7 @@ import ProductCard from "../components/Products/ProductCard";
 import Pagination from "../components/Pagination/Pagination";
 
 const Products = () => {
-  const products = [
+  /*const products = [
     {
       title: "Producto 1",
       description: "Descripción",
@@ -42,19 +42,17 @@ const Products = () => {
       price: 1000,
       image: "/images/PRODUCTS-CARD3.jpeg",
     },
-  ];
+  ];*/
   return (
     <>
       <Navbar />
       <section className="section-productos">
         <h2 className="section-productos-title">Productos</h2>
         <section className="section-productos-cards row">
-          {products.map((product, index) => (
-            <ProductCard key={index} {...product} />
-          ))}
+          <ProductCard />
         </section>
         <div className="d-flex justify-content-center my-3">
-        <Pagination />
+          <Pagination />
         </div>
       </section>
       <Footer />

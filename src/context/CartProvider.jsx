@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react";
 import { CartContext } from "./CartContext";
 
-const initialState = [];
+const initialState = JSON.parse(localStorage.getItem("cart")) || [];
 
 const cartReducer = (state, action) => {
   switch (action.type) {
@@ -10,7 +10,9 @@ const cartReducer = (state, action) => {
 
       if (itemExists) {
         return state.map((item) =>
-          item._id === action.payload._id ? { ...item, qty: item.qty + 1 } : item
+          item._id === action.payload._id
+            ? { ...item, qty: item.qty + 1 }
+            : item
         );
       }
 
@@ -19,13 +21,28 @@ const cartReducer = (state, action) => {
     case "REMOVE_FROM_CART":
       return state.filter((item) => item._id !== action.payload);
 
+    case "INCREASE_QTY":
+      return state.map((item) =>
+        item._id === action.payload
+          ? { ...item, qty: item.qty + 1 }
+          : item
+      );
+
+    case "DECREASE_QTY":
+      return state
+        .map((item) =>
+          item._id === action.payload
+            ? { ...item, qty: item.qty - 1 }
+            : item
+        )
+        .filter((item) => item.qty > 0);
+
     default:
       return state;
   }
 };
 
 const CartProvider = ({ children }) => {
-
   const [cart, dispatch] = useReducer(cartReducer, initialState);
 
   const addToCart = (product) => {
@@ -36,13 +53,32 @@ const CartProvider = ({ children }) => {
     dispatch({ type: "REMOVE_FROM_CART", payload: id });
   };
 
-  useEffect(() => {
-  console.log("🛒 Estado actual del carrito:", cart);
-}, [cart]);
-
-  return <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>{children}</CartContext.Provider>;
+  const increaseQty = (id) => {
+  dispatch({ type: "INCREASE_QTY", payload: id });
 };
 
-export default CartProvider
+const decreaseQty = (id) => {
+  dispatch({ type: "DECREASE_QTY", payload: id });
+};
+
+
+  useEffect(() => {
+    console.log("🛒 Estado actual del carrito:", cart);
+    try {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } catch (error) {
+      console.error("Error guardando el carrito", error);
+    }
+  }, [cart]);
+
+  return (
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, increaseQty,
+    decreaseQty, }}>
+      {children}
+    </CartContext.Provider>
+  );
+};
+
+export default CartProvider;
 
 // const useCart = () => useContext(CartContext);

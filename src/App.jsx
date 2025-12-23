@@ -10,6 +10,7 @@ import { AdminRoute } from "./components/PrivateRoute/AdminRoute";
 import User from "./pages/User";
 import Products from "./pages/Products";
 import ShoppingCart from "./pages/ShoppingCart";
+import Product from "./pages/Product";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/shoppingcart" element={<ShoppingCart />} />
+        <Route path="/product/:id" element={<Product />} />
         <Route path="*" element={<NotFound />} />
 
         {/* Ruta privada para usuarios */}
