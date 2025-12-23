@@ -9,6 +9,7 @@ import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { AdminRoute } from "./components/PrivateRoute/AdminRoute";
 import User from "./pages/User";
 import Products from "./pages/Products";
+import ShoppingCart from "./pages/ShoppingCart";
 
 function App() {
   return (
@@ -19,13 +20,14 @@ function App() {
         <Route path="/productos" element={<Products />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/shoppingcart" element={<ShoppingCart />} />
         <Route path="*" element={<NotFound />} />
 
         {/* Ruta privada para usuarios */}
         <Route
           path="/user"
           element={
-           <PrivateRoute>
+            <PrivateRoute>
               <User />
             </PrivateRoute>
           }
@@ -35,9 +37,9 @@ function App() {
         <Route
           path="/admin"
           element={
-            //<AdminRoute>
+            <AdminRoute>
               <Admin />
-            //</AdminRoute>
+            </AdminRoute>
           }
         />
       </Routes>
