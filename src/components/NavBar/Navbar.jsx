@@ -2,11 +2,15 @@ import { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { ThemeContext } from "../../context/ThemeContext";
+import { CartContext } from "../../context/CartContext";
 
 const Navbar = () => {
   const { isAuthenticated, logout, user } = useContext(AuthContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
+  const { cart } = useContext(CartContext);
+
+  const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
 
   const handleLogout = () => {
     logout();
@@ -81,34 +85,40 @@ const Navbar = () => {
                 </NavLink>
               </li>
             )}
-            {user?.roleAdmin === "user" || user?.roleAdmin === "admin" && (
-              <li className="nav-item">
-                <NavLink
-                  to="/user"
-                  className={({ isActive }) =>
-                    "nav-link" + (isActive ? " active" : "")
-                  }
-                >
-                  Usuario
-                </NavLink>
-              </li>
-            )}
+            {user?.roleAdmin === "user" ||
+              (user?.roleAdmin === "admin" && (
+                <li className="nav-item">
+                  <NavLink
+                    to="/user"
+                    className={({ isActive }) =>
+                      "nav-link" + (isActive ? " active" : "")
+                    }
+                  >
+                    Usuario
+                  </NavLink>
+                </li>
+              ))}
           </ul>
 
           {/* Botones a la derecha */}
           <div className="d-flex align-items-center">
+            <NavLink to="/ShoppingCart" className="ms-3">
+              <button
+                id="userToggleBtn"
+                className="btn btn-outline-light ms-3 position-relative"
+                title="Shopping cart"
+                aria-label="Shopping cart"
+              >
+                <i className="bi bi-cart"></i>
+                {totalItems > 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+            </NavLink>
             {isAuthenticated ? (
               <div>
-                <NavLink to="/ShoppingCart" className="ms-3">
-                  <button
-                    id="userToggleBtn"
-                    className="btn btn-outline-light ms-3"
-                    title="Shopping cart"
-                    aria-label="Shopping cart"
-                  >
-                    <i className="bi bi-cart"></i>
-                  </button>
-                </NavLink>
                 <button
                   onClick={handleLogout}
                   id="userToggleBtn"
