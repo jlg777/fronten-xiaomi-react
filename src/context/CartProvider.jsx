@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { CartContext } from "./CartContext";
+import toast from "react-hot-toast";
 
 const initialState = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -23,17 +24,13 @@ const cartReducer = (state, action) => {
 
     case "INCREASE_QTY":
       return state.map((item) =>
-        item._id === action.payload
-          ? { ...item, qty: item.qty + 1 }
-          : item
+        item._id === action.payload ? { ...item, qty: item.qty + 1 } : item
       );
 
     case "DECREASE_QTY":
       return state
         .map((item) =>
-          item._id === action.payload
-            ? { ...item, qty: item.qty - 1 }
-            : item
+          item._id === action.payload ? { ...item, qty: item.qty - 1 } : item
         )
         .filter((item) => item.qty > 0);
 
@@ -47,20 +44,21 @@ const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
     dispatch({ type: "ADD_TO_CART", payload: product });
+    toast.success(`${product.name} agregado al carrito`);
   };
 
   const removeFromCart = (id) => {
     dispatch({ type: "REMOVE_FROM_CART", payload: id });
+    toast.error("Producto eliminado del carrito");
   };
 
   const increaseQty = (id) => {
-  dispatch({ type: "INCREASE_QTY", payload: id });
-};
+    dispatch({ type: "INCREASE_QTY", payload: id });
+  };
 
-const decreaseQty = (id) => {
-  dispatch({ type: "DECREASE_QTY", payload: id });
-};
-
+  const decreaseQty = (id) => {
+    dispatch({ type: "DECREASE_QTY", payload: id });
+  };
 
   useEffect(() => {
     console.log("🛒 Estado actual del carrito:", cart);
@@ -72,8 +70,9 @@ const decreaseQty = (id) => {
   }, [cart]);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, increaseQty,
-    decreaseQty, }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, increaseQty, decreaseQty }}
+    >
       {children}
     </CartContext.Provider>
   );

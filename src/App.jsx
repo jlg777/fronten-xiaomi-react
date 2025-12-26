@@ -11,10 +11,13 @@ import User from "./pages/User";
 import Products from "./pages/Products";
 import ShoppingCart from "./pages/ShoppingCart";
 import Product from "./pages/Product";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
+      <Toaster position="top-right" />
+
       <Routes>
         {/* Ruta pública */}
         <Route path="/" element={<Home />} />
