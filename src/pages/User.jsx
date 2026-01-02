@@ -159,7 +159,7 @@ const User = () => {
                   <strong>Email:</strong> {user?.email}
                 </li>
                 <li>
-                  <strong>Rol:</strong> {user?.role || "Usuario"}
+                  <strong>Rol:</strong> {user?.roleAdmin || "Usuario"}
                 </li>
               </ul>
 
