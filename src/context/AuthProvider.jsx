@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
       try {
         const decoded = jwtDecode(storedToken);
         const now = Date.now() / 1000;
-
+console.log(decoded)
         if (decoded.exp < now) {
           // Token vencido
           localStorage.removeItem("token");
