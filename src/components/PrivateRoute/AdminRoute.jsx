@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
 
 export const AdminRoute = ({ children }) => {
-  const { isAuthenticated, user, loading, token } = useContext(AuthContext);
+  const { isAuthenticated, user, loading } = useContext(AuthContext);
   //console.log(isAuthenticated)
   if (loading) return <div>Cargando...</div>;
 
