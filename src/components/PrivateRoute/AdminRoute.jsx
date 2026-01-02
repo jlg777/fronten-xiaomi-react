@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
-import * as jwt_decode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 export const AdminRoute = ({ children }) => {
   const { isAuthenticated, user, loading, token } = useContext(AuthContext);
@@ -11,8 +11,8 @@ export const AdminRoute = ({ children }) => {
   if (!isAuthenticated || !token) return <Navigate to="/login" />;
 
   try {
-    const decoded = jwt_decode.default(token); 
-    const now = Date.now() / 1000; 
+    const decoded = jwtDecode(token);
+    const now = Date.now() / 1000;
     if (decoded.exp < now) {
       localStorage.removeItem("token");
       return <Navigate to="/login" />;
