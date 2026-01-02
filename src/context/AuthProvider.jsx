@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import api from "../api/api";
+import { jwtDecode } from "jwt-decode";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -11,9 +12,26 @@ export const AuthProvider = ({ children }) => {
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");
 
-    if (storedUser && storedToken) {
-      setUser(JSON.parse(storedUser));
-      setToken(storedToken);
+    if (storedToken) {
+      try {
+        const decoded = jwtDecode(storedToken);
+        const now = Date.now() / 1000;
+
+        if (decoded.exp < now) {
+          // Token vencido
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+        } else {
+          setToken(storedToken);
+          if (storedUser) {
+            setUser(JSON.parse(storedUser));
+          }
+        }
+      } catch (error) {
+        console.error("❌ Token inválido:", error);
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      }
     }
     setLoading(false);
   }, []);
@@ -53,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     user,
     setUser,
     token,
-    isAuthenticated: !!user,
+    isAuthenticated: !!user && !!token,
     loading,
     login,
     logout,
