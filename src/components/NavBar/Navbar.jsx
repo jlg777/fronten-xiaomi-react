@@ -85,19 +85,18 @@ const Navbar = () => {
                 </NavLink>
               </li>
             )}
-            {user?.roleAdmin === "user" ||
-              (user?.roleAdmin === "admin" && (
-                <li className="nav-item">
-                  <NavLink
-                    to="/user"
-                    className={({ isActive }) =>
-                      "nav-link" + (isActive ? " active" : "")
-                    }
-                  >
-                    Usuario
-                  </NavLink>
-                </li>
-              ))}
+            {(user?.roleAdmin === "user" || user?.roleAdmin === "admin") && (
+              <li className="nav-item">
+                <NavLink
+                  to="/user"
+                  className={({ isActive }) =>
+                    "nav-link" + (isActive ? " active" : "")
+                  }
+                >
+                  Usuario
+                </NavLink>
+              </li>
+            )}
           </ul>
 
           {/* Botones a la derecha */}
