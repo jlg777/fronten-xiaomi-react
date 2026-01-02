@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 export const AdminRoute = ({ children }) => {
   const { isAuthenticated, user, loading, token } = useContext(AuthContext);
