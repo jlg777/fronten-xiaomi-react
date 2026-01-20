@@ -39,15 +39,15 @@ console.log(decoded)
   const login = async (email, password) => {
     try {
       const response = await api.post(`/user/login`, { email, password });
-      const { userWithoutPassword, token } = response.data;
+      const { user, token } = response.data;
 
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(userWithoutPassword));
+      localStorage.setItem("user", JSON.stringify(user));
 
-      setUser(userWithoutPassword);
+      setUser(user);
       setToken(token);
 
-      return { success: true, user: userWithoutPassword };
+      return { success: true, user };
     } catch (error) {
       console.error("❌ Error en login:", error);
 

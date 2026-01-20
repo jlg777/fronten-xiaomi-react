@@ -27,7 +27,7 @@ const Login = () => {
       if (result.success) {
         const { user } = result;
         Swal.fire({
-          title: `¡Bienvenido, ${user.name}!`,
+          title: `¡Bienvenido, ${user?.name|| "Usuario"}!`,
           text: "Estamos felices de verte de nuevo",
           imageUrl: user?.avatar || "https://via.placeholder.com/150",
           imageWidth: 150,
