@@ -16,6 +16,8 @@ const User = () => {
     email: user?.email || "",
     password: "",
   });
+
+  
   const [showModal, setShowModal] = useState(false);
   // Pedidos simulados
   const orders = [
@@ -44,6 +46,8 @@ const User = () => {
           email: res.data.user.email || "",
           password: "",
         });
+      
+
       } catch (err) {
         console.error("Token inválido o expirado", err);
       }
