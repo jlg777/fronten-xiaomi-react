@@ -35,9 +35,7 @@ const User = () => {
     const fetchUser = async () => {
       if (!token) return;
       try {
-        const res = await api.get("/user", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await api.get("/user");
         setUser(res.data.user);
         setUserData({
           avatar: res.data.user.avatar || "",
@@ -50,7 +48,7 @@ const User = () => {
       }
     };
     fetchUser();
-  }, [setUser, token]);
+  }, [setUser]);
 
   useEffect(() => {
     if (avatarUrl) {
@@ -80,13 +78,9 @@ const User = () => {
       if (!dataToSend.password) {
         delete dataToSend.password;
       }
-      await api.put(`/user/${user.id}`, dataToSend, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await api.put(`/user/${user._id}`, dataToSend);
 
-      const updatedUser = { ...user, ...userData };
+      const updatedUser = { ...user, ...res.data };
       setUser(updatedUser);
       localStorage.setItem("user", JSON.stringify(updatedUser));
 
