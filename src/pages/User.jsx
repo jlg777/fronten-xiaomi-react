@@ -17,7 +17,6 @@ const User = () => {
     password: "",
   });
 
-  
   const [showModal, setShowModal] = useState(false);
   // Pedidos simulados
   const orders = [
@@ -46,8 +45,6 @@ const User = () => {
           email: res.data.user.email || "",
           password: "",
         });
-      
-
       } catch (err) {
         console.error("Token inválido o expirado", err);
       }
@@ -78,7 +75,12 @@ const User = () => {
     e.preventDefault();
     setUploading(true);
     try {
-      await api.put(`/user/${user.id}`, userData, {
+      const dataToSend = { ...userData };
+
+      if (!dataToSend.password) {
+        delete dataToSend.password;
+      }
+      await api.put(`/user/${user.id}`, dataToSend, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -95,7 +97,7 @@ const User = () => {
         timer: 2000,
         showConfirmButton: false,
       });
-     
+
       closeModal();
     } catch (error) {
       console.error("Error al actualizar usuario:", error);
