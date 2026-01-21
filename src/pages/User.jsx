@@ -66,8 +66,7 @@ const User = () => {
 
     setAvatarUrl("");
   };
-console.log(user.id)
-console.log(userData.id)
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData((prev) => ({
@@ -79,7 +78,7 @@ console.log(userData.id)
     e.preventDefault();
     setUploading(true);
     try {
-      await api.put(`/user/${user._id}`, userData, {
+      await api.put(`/user/${user.id}`, userData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
