@@ -77,7 +77,6 @@ const User = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUploading(true);
-    //console.log(user._id);
     try {
       await api.put(`/user/${user._id}`, userData, {
         headers: {

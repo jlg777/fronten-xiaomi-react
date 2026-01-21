@@ -4,7 +4,6 @@ import { Navigate } from "react-router-dom";
 
 export const AdminRoute = ({ children }) => {
   const { isAuthenticated, user, loading } = useContext(AuthContext);
-  //console.log(isAuthenticated)
   if (loading) return <div>Cargando...</div>;
 
   if (!isAuthenticated) return <Navigate to="/login" />;
