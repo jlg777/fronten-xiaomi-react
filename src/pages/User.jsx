@@ -66,7 +66,7 @@ const User = () => {
 
     setAvatarUrl("");
   };
-
+console.log(user)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData((prev) => ({
