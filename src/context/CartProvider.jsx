@@ -2,7 +2,17 @@ import { useEffect, useReducer } from "react";
 import { CartContext } from "./CartContext";
 import toast from "react-hot-toast";
 
-const initialState = JSON.parse(localStorage.getItem("cart")) || [];
+const getInitialState = () => {
+  try {
+    const cart = localStorage.getItem("cart");
+    return cart ? JSON.parse(cart) : [];
+  } catch (error) {
+    console.error("Error al leer el carrito del localStorage:", error);
+    return [];
+  }
+};
+
+const initialState = getInitialState();
 
 const cartReducer = (state, action) => {
   switch (action.type) {

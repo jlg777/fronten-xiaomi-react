@@ -6,7 +6,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 const ProductCard = () => {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
   const { products, loading, error } = useProducts();
-  const featuredProducts = products.slice(0, 6);
+  const featuredProducts = Array.isArray(products) ? products.slice(0, 6) : [];
   const [isFavorite, SetIsFavorite] = useState(false);
   const location = useLocation();
   return (
@@ -23,7 +23,7 @@ const ProductCard = () => {
           <p className="loader-text">Error al cargar productos...</p>
         </div>
       )}
-      {location.pathname === "/"
+      {!loading && !error && location.pathname === "/"
         ? featuredProducts.map((product) => (
             <article
               key={product._id}
@@ -60,7 +60,7 @@ const ProductCard = () => {
               </div>
             </article>
           ))
-        : products.map((product) => (
+        : !loading && !error && Array.isArray(products) && products.map((product) => (
             <article
               key={product._id}
               className="section-productos-card col-12 col-md-6 col-lg-3"
