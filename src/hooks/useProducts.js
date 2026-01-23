@@ -9,7 +9,7 @@ const useProducts = (category) => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const apiUrl = import.meta.env.VITE_API_MONDO_PRODUCTS;
+  const apiUrl = import.meta.env.VITE_API_MONDO_PRODUCTS1;
 
   const fetchProducts = useCallback(async () => {
     if (!apiUrl) {
@@ -34,7 +34,7 @@ const useProducts = (category) => {
     setError(null);
 
     try {
-      let url = `https://backend-xiaomi.onrender.com/test-errors/500`;
+      let url = `${apiUrl}?limit=20&page=${currentPage}`;
       if (category && category !== "all") url += `&category=${category}`;
       const response = await axios.get(url);
       setProducts(
@@ -47,7 +47,7 @@ const useProducts = (category) => {
 
       let errorMessage = "Ocurrió un problema al obtener los productos.";
 
-      if (err.response?.status === 500) {
+      if (err.response?.status === 404) {
         errorMessage = `La API no está disponible en:\n${apiUrl}\n\nVerifica que:\n- El backend esté corriendo\n- La URL sea correcta\n- El puerto coincida`;
       } else if (err.response?.status === 500) {
         errorMessage = "Error interno del servidor. Intenta más tarde.";
