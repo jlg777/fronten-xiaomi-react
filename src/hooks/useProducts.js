@@ -34,7 +34,7 @@ const useProducts = (category) => {
     setError(null);
 
     try {
-      let url = `${apiUrl}/ruta-que-no-existe`;
+      let url = `${apiUrl}/test-errors/404`;
       if (category && category !== "all") url += `&category=${category}`;
       const response = await axios.get(url);
       setProducts(
