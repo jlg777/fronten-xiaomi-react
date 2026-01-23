@@ -9,7 +9,7 @@ const useProducts = (category) => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const apiUrl = import.meta.env.VITE_API_MONDO_PRODUCTS1;
+  const apiUrl = import.meta.env.VITE_API_MONDO_PRODUCTS;
 
   const fetchProducts = useCallback(async () => {
     if (!apiUrl) {
