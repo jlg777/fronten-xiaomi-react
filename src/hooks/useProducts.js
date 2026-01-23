@@ -34,7 +34,7 @@ const useProducts = (category) => {
     setError(null);
 
     try {
-      let url = `${apiUrl}/test-errors/500`;
+      let url = `https://backend-xiaomi.onrender.com/test-errors/500`;
       if (category && category !== "all") url += `&category=${category}`;
       const response = await axios.get(url);
       setProducts(
