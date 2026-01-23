@@ -47,7 +47,7 @@ const useProducts = (category) => {
 
       let errorMessage = "Ocurrió un problema al obtener los productos.";
 
-      if (err.response?.status === 404) {
+      if (err.response?.status === 500) {
         errorMessage = `La API no está disponible en:\n${apiUrl}\n\nVerifica que:\n- El backend esté corriendo\n- La URL sea correcta\n- El puerto coincida`;
       } else if (err.response?.status === 500) {
         errorMessage = "Error interno del servidor. Intenta más tarde.";
