@@ -60,7 +60,9 @@ const ProductCard = () => {
               </div>
             </article>
           ))
-        : products.map((product) => (
+        : !loading &&
+          !error &&
+          products.map((product) => (
             <article
               key={product._id}
               className="section-productos-card col-12 col-md-6 col-lg-3"
