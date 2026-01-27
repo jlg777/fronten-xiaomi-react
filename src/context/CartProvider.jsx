@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 
 const initialState = JSON.parse(localStorage.getItem("cart")) || [];
 
+
 const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
@@ -80,4 +81,4 @@ const CartProvider = ({ children }) => {
 
 export default CartProvider;
 
-// const useCart = () => useContext(CartContext);
+
