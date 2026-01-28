@@ -11,7 +11,7 @@ import Button from "react-bootstrap/Button";
 
 const Checkout = () => {
   const { cart } = useContext(CartContext);
-  const { loading } = useOrders();
+  const { createOrder, loading } = useOrders();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
