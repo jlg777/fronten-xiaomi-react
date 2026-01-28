@@ -91,7 +91,7 @@ const ShoppingCart = () => {
           style={{ width: "150px" }}
         />
       </div>
-      <NavLink href="/checkout" className="mt-3">
+      <NavLink to="/checkout" className="btn btn-primary me-2">
         Ir a Checkout
       </NavLink>
       <Footer />
