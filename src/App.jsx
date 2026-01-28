@@ -12,6 +12,7 @@ import Products from "./pages/Products";
 import ShoppingCart from "./pages/ShoppingCart";
 import Product from "./pages/Product";
 import { Toaster } from "react-hot-toast";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -34,6 +35,15 @@ function App() {
           element={
             <PrivateRoute>
               <User />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/checkout"
+          element={
+            <PrivateRoute>
+              <Checkout />
             </PrivateRoute>
           }
         />

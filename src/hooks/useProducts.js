@@ -87,26 +87,3 @@ const useProducts = (category) => {
 };
 
 export default useProducts;
-
-/*
-
-Si querés, el próximo paso lógico sería:
-
-extraer SweetAlert fuera del hook
-
-o crear un useApiError
-
-o mejorar la paginación con useMemo
-
-Vos decís 😄
-
-Si querés, el próximo paso natural sería:
-
-limpiar el componente ProductCard
-
-evitar JSX duplicado
-
-o hacer un usePagination
-
-Decime qué seguimos y le damos 🚀
-*/

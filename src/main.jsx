@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import AuthProvider from "./context/AuthProvider.jsx";
 import { ThemeProvider } from "./context/ThemeProvider.jsx";
 import CartProvider from "./context/CartProvider.jsx";
+import OrderProvider from "./context/OrderProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -13,10 +14,12 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <ThemeProvider>
           <CartProvider>
-            <App />
+            <OrderProvider>
+              <App />
+            </OrderProvider>
           </CartProvider>
         </ThemeProvider>
       </AuthProvider>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );
