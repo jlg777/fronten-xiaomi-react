@@ -3,6 +3,7 @@ import Footer from "../components/Footer/Footer";
 import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
 import Form from "react-bootstrap/Form";
+import { NavLink } from "react-router-dom";
 
 const ShoppingCart = () => {
   const { cart, removeFromCart, increaseQty, decreaseQty } =
@@ -53,13 +54,13 @@ const ShoppingCart = () => {
                     type="button"
                     className="btn btn-outline-primary me-2"
                     onClick={() => increaseQty(prod._id)}
-                    >
+                  >
                     <i class="bi bi-plus-square"></i>
                   </button>
                   <button
                     type="button"
                     className="btn btn-outline-secondary me-2"
-                      disabled={prod.qty === 1}
+                    disabled={prod.qty === 1}
                     onClick={() => decreaseQty(prod._id)}
                   >
                     <i class="bi bi-dash-square"></i>
@@ -90,13 +91,9 @@ const ShoppingCart = () => {
           style={{ width: "150px" }}
         />
       </div>
-      {/*<div className="d-flex justify-content-center my-3">
-        <Pagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      </div>*/}
+      <NavLink href="/checkout" className="mt-3">
+        Ir a Checkout
+      </NavLink>
       <Footer />
     </>
   );
