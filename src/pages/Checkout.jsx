@@ -8,7 +8,6 @@ import Navbar from "../components/NavBar/Navbar";
 import Footer from "../components/Footer/Footer";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import "./Checkout.css";
 
 const Checkout = () => {
   const { cart } = useContext(CartContext);
