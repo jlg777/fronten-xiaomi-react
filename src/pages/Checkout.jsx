@@ -11,7 +11,7 @@ import Button from "react-bootstrap/Button";
 
 const Checkout = () => {
   const { cart } = useContext(CartContext);
-  const { createOrder, loading } = useOrders();
+  const { loading } = useOrders();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -39,23 +39,20 @@ const Checkout = () => {
       items: cart.map((prod) => ({
         product: prod._id,
         quantity: prod.qty,
-        priceAtPurchase: prod.price,
       })),
       shippingAddress: {
-        street: formData.address,
         city: formData.city,
+        street: formData.address,
         zip: formData.postalCode,
         country: "Argentina",
       },
       paymentMethod: formData.paymentMethod,
-      total,
     };
 
-    /*const result = await createOrder(orderData);
+    const result = await createOrder(orderData);
     if (result) {
       navigate("/user");
-    }*/
-   console.log(orderData)
+    }
   };
 
   if (cart.length === 0) {
@@ -109,7 +106,8 @@ const Checkout = () => {
                 <div className="d-flex justify-content-between fw-bold fs-5">
                   <span>Total:</span>
                   <span>
-                    ${total.toLocaleString("es-AR", {
+                    $
+                    {total.toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
@@ -240,7 +238,7 @@ const Checkout = () => {
                     </Button>
                     <Button
                       variant="outline-secondary"
-                      onClick={() => navigate("/cart")}
+                      onClick={() => navigate("/ShoppingCart")}
                     >
                       Volver al carrito
                     </Button>
