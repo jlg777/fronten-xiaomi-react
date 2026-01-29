@@ -6,6 +6,7 @@ import UserImage from "../components/Register/UserImage";
 import Swal from "sweetalert2";
 import api from "../api/api";
 import { useOrders } from "../hooks/useOrders";
+import { formatDate } from "../utils/localDate";
 
 const User = () => {
   const { user, setUser, token } = useContext(AuthContext);
@@ -192,9 +193,14 @@ const User = () => {
                 <div className="col-md-4 mb-3" key={order._id}>
                   <div className="card h-100 shadow-sm">
                     <div className="card-body">
-                      <h5 className="card-title">{order.product}</h5>
+                      <h5 className="card-title">
+                        {order.items[0]?.product?.name || "Producto"}
+                      </h5>
                       <p className="card-text">
-                        <strong>Fecha:</strong> {order.date} <br />
+                        <strong>Fecha:</strong> {formatDate(order.createdAt)} <br />
+                        <strong>Cantidad:</strong> {order.items[0]?.quantity} <br />
+                        <strong>Total:</strong> ${order.total}
+                        <br />
                         <strong>Estado:</strong> {order.status}
                       </p>
                     </div>
