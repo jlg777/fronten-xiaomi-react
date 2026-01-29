@@ -10,7 +10,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 const Checkout = () => {
-  const { cart } = useContext(CartContext);
+  const { cart, clearCart } = useContext(CartContext);
   const { createOrder, loading } = useOrders();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -51,6 +51,7 @@ const Checkout = () => {
 
     const result = await createOrder(orderData);
     if (result) {
+      clearCart();
       navigate("/user");
     }
   };
