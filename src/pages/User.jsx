@@ -5,6 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import UserImage from "../components/Register/UserImage";
 import Swal from "sweetalert2";
 import api from "../api/api";
+import { useOrders } from "../hooks/useOrders";
 
 const User = () => {
   const { user, setUser, token } = useContext(AuthContext);
@@ -16,20 +17,9 @@ const User = () => {
     email: user?.email || "",
     password: "",
   });
+  const { getOrders, loading, orders } = useOrders();
 
   const [showModal, setShowModal] = useState(false);
-  // Pedidos simulados
-  const orders = [
-    { id: 1, product: "Xiaomi Mi 12", date: "2025-10-20", status: "Enviado" },
-    {
-      id: 2,
-      product: "Redmi Note 11",
-      date: "2025-09-15",
-      status: "Pendiente",
-    },
-    { id: 3, product: "Mi Band 6", date: "2025-08-30", status: "Entregado" },
-  ];
-  //console.log(user.name)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -49,6 +39,12 @@ const User = () => {
     };
     fetchUser();
   }, [setUser]);
+
+  useEffect(() => {
+    if (user?._id) {
+      getOrders();
+    }
+  }, [user?._id, getOrders]);
 
   useEffect(() => {
     if (avatarUrl) {
@@ -185,19 +181,34 @@ const User = () => {
         <section className="user-orders">
           <h3 className="mb-3">Tus pedidos recientes</h3>
           <div className="row">
-            {orders.map((order) => (
-              <div className="col-md-4 mb-3" key={order.id}>
-                <div className="card h-100 shadow-sm">
-                  <div className="card-body">
-                    <h5 className="card-title">{order.product}</h5>
-                    <p className="card-text">
-                      <strong>Fecha:</strong> {order.date} <br />
-                      <strong>Estado:</strong> {order.status}
-                    </p>
-                  </div>
+            {loading ? (
+              <div className="col-12 text-center">
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Cargando...</span>
                 </div>
               </div>
-            ))}
+            ) : orders && orders.length > 0 ? (
+              orders.map((order) => (
+                <div className="col-md-4 mb-3" key={order._id}>
+                  <div className="card h-100 shadow-sm">
+                    <div className="card-body">
+                      <h5 className="card-title">{order.product}</h5>
+                      <p className="card-text">
+                        <strong>Fecha:</strong> {order.date} <br />
+                        <strong>Estado:</strong> {order.status}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-12">
+                <div className="alert alert-info text-center" role="alert">
+                  <i className="bi bi-inbox me-2"></i>
+                  No existen órdenes
+                </div>
+              </div>
+            )}
           </div>
         </section>
       </main>

@@ -58,11 +58,11 @@ const OrderProvider = ({ children }) => {
     }
   }, []);
 
-  // Obtener todas las órdenes
+  // Obtener todas las órdenes del usuario autenticado
   const getOrders = useCallback(async () => {
     dispatch({ type: "LOADING" });
     try {
-      const response = await api.get("/orders");
+      const response = await api.get("/orders/user");
       dispatch({ type: "GET_ORDERS_SUCCESS", payload: response.data });
     } catch (error) {
       const errorMsg = error.response?.data?.message || "Error al obtener órdenes";
