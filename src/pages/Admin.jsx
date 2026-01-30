@@ -10,7 +10,15 @@ import useProducts from "../hooks/useProducts";
 
 const Admin = () => {
   const [category, setCategory] = useState("all");
-  const { products, loading, error, refetch, totalPages, currentPage, setCurrentPage } = useProducts(category);
+  const {
+    products,
+    loading,
+    error,
+    refetch,
+    totalPages,
+    currentPage,
+    setCurrentPage,
+  } = useProducts(category);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [productToEdit, setProductToEdit] = useState(null);
 
@@ -20,7 +28,7 @@ const Admin = () => {
     }
   }, [products]);
 
-  const handleSearch = (searchTerm, category) => {
+  const handleSearch = (searchTerm) => {
     if (!Array.isArray(products)) {
       setFilteredProducts([]);
       return;
@@ -28,19 +36,18 @@ const Admin = () => {
 
     let filtered = products;
 
-    /*if (category && category !== "all") {
-      filtered = filtered.filter((p) => p.category === category);
-    }*/
-
-    setCategory(category);
-
     if (searchTerm && searchTerm.trim() !== "") {
       filtered = filtered.filter((p) =>
-        p.name.toLowerCase().includes(searchTerm.toLowerCase())
+        p.name.toLowerCase().includes(searchTerm.toLowerCase()),
       );
     }
 
     setFilteredProducts(filtered);
+  };
+
+  const handleCategoryChange = (newCategory) => {
+    setCategory(newCategory);
+    setCurrentPage(1);
   };
 
   return (
@@ -56,7 +63,10 @@ const Admin = () => {
               setProductToEdit={setProductToEdit}
             />
             <div className="col-12 col-lg-10">
-              <ProductSearch onSearch={handleSearch} />
+              <ProductSearch
+                onSearch={handleSearch}
+                onCategoryChange={handleCategoryChange}
+              />
               <ProductTable
                 products={filteredProducts}
                 loading={loading}

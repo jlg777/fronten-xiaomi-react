@@ -200,6 +200,7 @@ const User = () => {
                         <strong>Fecha:</strong> {formatDate(order.createdAt)} <br />
                         <strong>Cantidad:</strong> {order.items[0]?.quantity} <br />
                         <strong>Total:</strong> ${order.total}
+                        <strong>Forma de pago:</strong> ${order.paymentMethod}
                         <br />
                         <strong>Estado:</strong> {order.status}
                       </p>

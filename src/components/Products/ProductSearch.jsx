@@ -1,19 +1,19 @@
 import { useState } from "react";
 
-const ProductSearch = ({ onSearch }) => {
+const ProductSearch = ({ onSearch, onCategoryChange  }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("all");
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
-    onSearch(value, category);
+    onSearch(value);
   };
 
   const handleCategoryChange = (e) => {
     const value = e.target.value;
     setCategory(value);
-    onSearch(searchTerm, value);
+    onCategoryChange(value);
   };
 
   return (
