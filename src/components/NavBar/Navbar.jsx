@@ -85,10 +85,10 @@ const Navbar = () => {
                 </NavLink>
               </li>
             )}
-              {user?.roleAdmin === "adminorders" && (
+              {user?.roleAdmin === "admin" && (
               <li className="nav-item">
                 <NavLink
-                  to="/admin"
+                  to="/adminorders"
                   className={({ isActive }) =>
                     "nav-link" + (isActive ? " active" : "")
                   }

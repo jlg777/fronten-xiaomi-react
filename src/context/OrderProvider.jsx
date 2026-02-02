@@ -28,6 +28,7 @@ const orderReducer = (state, action) => {
         currentOrder: action.payload,
         loading: false,
       };
+      
 
     case "ERROR":
       return { ...state, error: action.payload, loading: false };
@@ -85,6 +86,22 @@ const OrderProvider = ({ children }) => {
     }
   }, []);
 
+  // Obtener TODAS las órdenes (admin)
+const getAllOrders = useCallback(async () => {
+  dispatch({ type: "LOADING" });
+
+  try {
+    const response = await api.get("/orders"); // 🔥 endpoint admin
+    dispatch({ type: "GET_ORDERS_SUCCESS", payload: response.data });
+  } catch (error) {
+    const errorMsg =
+      error.response?.data?.message || "Error al obtener las órdenes";
+    dispatch({ type: "ERROR", payload: errorMsg });
+    toast.error(errorMsg);
+  }
+}, []);
+
+
   // Limpiar errores
   const clearError = useCallback(() => {
     dispatch({ type: "CLEAR_ERROR" });
@@ -95,6 +112,7 @@ const OrderProvider = ({ children }) => {
     createOrder,
     getOrders,
     getOrderById,
+    getAllOrders,
     clearError,
   };
 
