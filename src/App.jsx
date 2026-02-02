@@ -59,7 +59,7 @@ function App() {
           }
         />
         <Routes
-          path="adminorders"
+          path="/adminorders"
           element={
             <AdminRoute>
               <AdminOrders />
