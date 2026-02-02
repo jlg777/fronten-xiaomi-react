@@ -13,6 +13,8 @@ import ShoppingCart from "./pages/ShoppingCart";
 import Product from "./pages/Product";
 import { Toaster } from "react-hot-toast";
 import Checkout from "./pages/Checkout";
+import AdminOrders from "./pages/AdminOrders";
+
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
         <Route path="/shoppingcart" element={<ShoppingCart />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="AdminOrders" element={<AdminOrders />} />
 
         {/* Ruta privada para usuarios */}
         <Route
