@@ -58,15 +58,15 @@ function App() {
             </AdminRoute>
           }
         />
+        <Routes
+          path="adminorders"
+          element={
+            <AdminRoute>
+              <AdminOrders />
+            </AdminRoute>
+          }
+        />
       </Routes>
-      <Route
-        path="adminorders"
-        element={
-          <AdminRoute>
-            <AdminOrders />
-          </AdminRoute>
-        }
-      />
     </>
   );
 }
