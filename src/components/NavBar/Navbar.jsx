@@ -81,7 +81,19 @@ const Navbar = () => {
                     "nav-link" + (isActive ? " active" : "")
                   }
                 >
-                  Admin
+                  Administrador de Productos
+                </NavLink>
+              </li>
+            )}
+              {user?.roleAdmin === "adminorders" && (
+              <li className="nav-item">
+                <NavLink
+                  to="/admin"
+                  className={({ isActive }) =>
+                    "nav-link" + (isActive ? " active" : "")
+                  }
+                >
+                  Administrador de Ordenes
                 </NavLink>
               </li>
             )}
