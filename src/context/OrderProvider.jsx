@@ -91,7 +91,7 @@ const getAllOrders = useCallback(async () => {
   dispatch({ type: "LOADING" });
 
   try {
-    const response = await api.get("/orders"); // 🔥 endpoint admin
+    const response = await api.get("/orders/users");
     dispatch({ type: "GET_ORDERS_SUCCESS", payload: response.data });
   } catch (error) {
     const errorMsg =
