@@ -4,7 +4,7 @@ import OrdersTable from "../components/Orders/OrdersTable";
 import { useOrders } from "../hooks/useOrders";
 
 const AdminOrders = () => {
-  const { loading, error } = useOrders();
+  const { orders, loading, error } = useOrders();
 
   return (
     <>
