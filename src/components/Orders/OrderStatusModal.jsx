@@ -11,8 +11,12 @@ const transitions = {
 };
 
 const OrderStatusModal = ({ order, onClose, refetch }) => {
-  const [newStatus, setNewStatus] = useState(order.status);
+  const [newStatus, setNewStatus] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setNewStatus("");
+  }, [order]);
 
   const handleUpdate = async () => {
     try {
@@ -40,24 +44,28 @@ const OrderStatusModal = ({ order, onClose, refetch }) => {
           </div>
 
           <div className="modal-body">
-            <p><strong>ID:</strong> {order._id.slice(-6)}</p>
-            <p><strong>Cliente:</strong> {order.user?.name}</p>
-            <p><strong>Estado actual:</strong> {order.status}</p>
+            <p>
+              <strong>ID:</strong> {order._id.slice(-6)}
+            </p>
+            <p>
+              <strong>Cliente:</strong> {order.user?.name}
+            </p>
+            <p>
+              <strong>Estado actual:</strong> {order.status}
+            </p>
 
-            {allowed.length > 0 ? (
-              <select
-                className="form-select mt-3"
-                value={newStatus}
-                onChange={(e) => setNewStatus(e.target.value)}
-              >
-                <option value={order.status}>{order.status}</option>
-                {allowed.map((s) => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </select>
-            ) : (
-              <p className="text-muted">Esta orden ya está finalizada.</p>
-            )}
+            <select
+              className="form-select mt-3"
+              value={newStatus}
+              onChange={(e) => setNewStatus(e.target.value)}
+            >
+              <option value="">Seleccionar nuevo estado</option>
+              {allowed.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="modal-footer">
@@ -68,7 +76,7 @@ const OrderStatusModal = ({ order, onClose, refetch }) => {
               <button
                 className="btn btn-primary"
                 onClick={handleUpdate}
-                disabled={loading || newStatus === order.status}
+                disabled={loading || !newStatus}
               >
                 {loading ? "Guardando..." : "Guardar cambios"}
               </button>
