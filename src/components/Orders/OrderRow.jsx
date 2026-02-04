@@ -1,13 +1,13 @@
-const OrderRow = ({ order, openStatusModal  }) => {
-  
-    const statusColors = {
-      pending: "secondary",
-      paid: "info",
-      shipped: "primary",
-      delivered: "success",
-      cancelled: "danger",
-    };
- 
+const OrderRow = ({ order, openStatusModal }) => {
+  const statusColors = {
+    pending: "secondary",
+    paid: "info",
+    shipped: "primary",
+    delivered: "success",
+    cancelled: "danger",
+  };
+
+  const isFinal = order.status === "delivered" || order.status === "cancelled";
 
   return (
     <tr>
@@ -20,8 +20,12 @@ const OrderRow = ({ order, openStatusModal  }) => {
         <span
           role="button"
           className={`badge bg-${statusColors[order.status]} px-3 py-2 text-capitalize`}
-          onClick={() => openStatusModal(order)}
-          style={{ cursor: "pointer" }}
+          onClick={!isFinal ? () => openStatusModal(order) : undefined}
+          title={isFinal ? "La orden ya está finalizada" : "Cambiar estado"}
+          style={{
+            opacity: isFinal ? 0.5 : 1,
+            cursor: isFinal ? "not-allowed" : "pointer",
+          }}
         >
           {order.status}
         </span>

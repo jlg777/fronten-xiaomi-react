@@ -29,7 +29,6 @@ const openStatusModal = (order) => {
           <th>Total</th>
           <th>Pago</th>
           <th>Estado</th>
-          <th>Actualizar</th>
           <th>Fecha</th>
         </tr>
       </thead>
