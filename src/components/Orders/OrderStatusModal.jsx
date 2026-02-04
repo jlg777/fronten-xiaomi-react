@@ -27,8 +27,8 @@ const OrderStatusModal = ({ order, onClose, refetch }) => {
       setLoading(true);
       await api.put(`/orders/${order._id}`, { status: newStatus });
       toast.success("Estado actualizado");
-      onClose();
       refetch();
+      onClose();
     } catch (err) {
       toast.error(err.response?.data?.message || "Error al actualizar");
       console.log(err);
