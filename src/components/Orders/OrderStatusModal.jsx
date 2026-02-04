@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import api from "../../api/api";
 import toast from "react-hot-toast";
 
@@ -14,19 +14,24 @@ const OrderStatusModal = ({ order, onClose, refetch }) => {
   const [newStatus, setNewStatus] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const lockRef = useRef(false);
+
   useEffect(() => {
     setNewStatus("");
   }, [order]);
 
   const handleUpdate = async () => {
+    if (lockRef.current) return;
+    lockRef.current = true;
     try {
       setLoading(true);
       await api.put(`/orders/${order._id}`, { status: newStatus });
       toast.success("Estado actualizado");
-      refetch();
       onClose();
+      refetch();
     } catch (err) {
       toast.error(err.response?.data?.message || "Error al actualizar");
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -74,6 +79,7 @@ const OrderStatusModal = ({ order, onClose, refetch }) => {
             </button>
             {allowed.length > 0 && (
               <button
+                type="button"
                 className="btn btn-primary"
                 onClick={handleUpdate}
                 disabled={loading || !newStatus}
