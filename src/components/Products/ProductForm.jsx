@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import ProductImage from "./ProductImage.jsx";
 import api from "../../api/api.js";
+import "../../css/admin.css"
 
 const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
   const [imageKey, setImageKey] = useState(0);
@@ -19,6 +20,8 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
 
   const formRef = useRef(null);
 
+  const [highlight, setHighlight] = useState(false);
+
   useEffect(() => {
     if (productToEdit) {
       reset(productToEdit);
@@ -29,13 +32,15 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
     if (productToEdit && formRef.current) {
       formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
 
-      // pequeño delay para asegurar render
       setTimeout(() => {
         const firstInput = formRef.current.querySelector(
           "input, select, textarea",
         );
         firstInput?.focus();
       }, 200);
+
+      setHighlight(true);
+      setTimeout(() => setHighlight(false), 1500);
     }
   }, [productToEdit]);
 
@@ -104,7 +109,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
         <form
           ref={formRef}
           id="xiaomiForm"
-          className="xiaomiForm"
+          className={`xiaomiForm ${highlight ? "form-highlight" : ""}`}
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="mb-3">
