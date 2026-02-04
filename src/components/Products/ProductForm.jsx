@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import ProductImage from "./ProductImage.jsx";
@@ -17,11 +17,27 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
 
   const apiUrl = import.meta.env.VITE_API_MONDO_PRODUCTS;
 
+  const formRef = useRef(null);
+
   useEffect(() => {
     if (productToEdit) {
       reset(productToEdit);
     }
   }, [productToEdit, reset]);
+
+  useEffect(() => {
+    if (productToEdit && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // pequeño delay para asegurar render
+      setTimeout(() => {
+        const firstInput = formRef.current.querySelector(
+          "input, select, textarea",
+        );
+        firstInput?.focus();
+      }, 200);
+    }
+  }, [productToEdit]);
 
   const handleImageChange = (url) => {
     setValue("image", url, { shouldValidate: true, shouldDirty: true });
@@ -86,6 +102,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
       {/* Formulario de ingreso */}
       <div className="col-12 col-lg-2">
         <form
+          ref={formRef}
           id="xiaomiForm"
           className="xiaomiForm"
           onSubmit={handleSubmit(onSubmit)}
