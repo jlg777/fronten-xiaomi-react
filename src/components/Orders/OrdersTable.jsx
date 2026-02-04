@@ -1,11 +1,20 @@
 import { useState } from "react";
 import OrderRow from "./OrderRow";
 import OrderStatusModal from "./OrderStatusModal";
+import toast from "react-hot-toast";
 
 const OrdersTable = ({ orders = [], loading, error, refetch }) => {
 const [selectedOrder, setSelectedOrder] = useState(null);
 
-  const openStatusModal = (order) => setSelectedOrder(order);
+
+const openStatusModal = (order) => {
+  if (order.status === "delivered" || order.status === "cancelled") {
+    toast("La orden ya está finalizada", { icon: "ℹ️" });
+    return;
+  }
+  setSelectedOrder(order);
+};
+
   const closeModal = () => setSelectedOrder(null);
 
   if (loading) return <p>Cargando pedidos...</p>;
