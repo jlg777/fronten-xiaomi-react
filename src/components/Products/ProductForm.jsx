@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import ProductImage from "./ProductImage.jsx";
 import api from "../../api/api.js";
-import "../../css/admin.css"
+import "../../css/admin.css";
 
 const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
   const [imageKey, setImageKey] = useState(0);
@@ -196,10 +196,16 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
               className="form-control"
               id="productDescription"
               rows="3"
-              {...register("description", { required: true })}
+              {...register("description", {
+                required: "La descripción es obligatoria",
+                minLength: {
+                  value: 10,
+                  message: "Debe tener al menos 10 caracteres",
+                },
+              })}
             ></textarea>
             {errors.description && (
-              <p className="text-danger">La descripción es obligatoria</p>
+              <p className="text-danger">{errors.description.message}</p>
             )}
           </div>
           <div
