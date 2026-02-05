@@ -122,7 +122,16 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
               id="productName"
               placeholder="Producto Xiaomi"
               spellCheck={true}
-              {...register("name", { required: true })}
+              {...register("name", {
+                required: true,
+                minLength: {
+                  value: 3,
+                  message: "Debe tener mas de 3 caracteres",
+                },maxLength: {
+                  value: 100,
+                  message: "Debe tener menos de 100 caracteres",
+                },
+              })}
             />
             {errors.name && (
               <p className="text-danger">El nombre es obligatorio</p>
@@ -200,8 +209,12 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
                 required: "La descripción es obligatoria",
                 minLength: {
                   value: 10,
-                  message: "Debe tener al menos 10 caracteres",
+                  message: "Debe tener mas de 10 caracteres",
                 },
+                maxLength: {
+                  value: 2000,
+                  message: "Debe tener menos de 2000 caracteres",
+                }
               })}
             ></textarea>
             {errors.description && (
