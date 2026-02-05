@@ -134,7 +134,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
               })}
             />
             {errors.name && (
-              <p className="text-danger">El nombre es obligatorio</p>
+              <p className="text-danger">{errors.name.message}</p>
             )}
           </div>
           <div className="mb-3">
