@@ -123,7 +123,7 @@ const ProductForm = ({ refetch, productToEdit, setProductToEdit }) => {
               placeholder="Producto Xiaomi"
               spellCheck={true}
               {...register("name", {
-                required: true,
+                required: "El nombre es obligatorio",
                 minLength: {
                   value: 3,
                   message: "Debe tener mas de 3 caracteres",
