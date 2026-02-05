@@ -14,23 +14,19 @@ const OrderStatusModal = ({ order, onClose, refetch }) => {
   const [newStatus, setNewStatus] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const lockRef = useRef(false);
-
   useEffect(() => {
     setNewStatus("");
   }, [order]);
 
   const handleUpdate = async () => {
-    if (lockRef.current) return;
-    lockRef.current = true;
-    try {
+     try {
       setLoading(true);
       await api.put(`/orders/${order._id}`, { status: newStatus });
       toast.success("Estado actualizado");
       refetch();
       onClose();
     } catch (err) {
-      toast.error(err.response?.data?.message || "Error al actualizar");
+      toast.error(err.response?.data?.error || "Error al actualizar");
       console.log(err);
     } finally {
       setLoading(false);

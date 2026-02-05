@@ -34,7 +34,7 @@ const openStatusModal = (order) => {
       </thead>
       <tbody>
         {orders && orders.length > 0 ? (
-          orders.map((order) => <OrderRow key={order._id} order={order}  refetch={refetch} openStatusModal={openStatusModal}/>)
+          orders.map((order) => <OrderRow key={order._id} order={order} openStatusModal={openStatusModal}/>)
         ) : (
           <tr>
             <td colSpan="6" className="text-center">

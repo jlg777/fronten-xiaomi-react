@@ -18,7 +18,7 @@ const AdminOrders = () => {
         <main className="container-xxxl">
           <h1 className="main-title text-center">GESTIÓN DE PEDIDOS</h1>
 
-          <OrdersTable orders={orders} loading={loading} error={error} />
+          <OrdersTable orders={orders} loading={loading} error={error} refetch={getAllOrders} />
         </main>
       </div>
       <Footer />
