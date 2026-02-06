@@ -113,7 +113,7 @@ const Navbar = () => {
 
           {/* Botones a la derecha */}
           <div className="d-flex align-items-center">
-            <NavLink to="/ShoppingCart" className="ms-3">
+            <NavLink to="/shoppingcart" className="ms-3">
               <button
                 id="userToggleBtn"
                 className="btn btn-outline-light ms-3 position-relative"

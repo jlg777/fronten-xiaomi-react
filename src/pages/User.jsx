@@ -75,7 +75,7 @@ const User = () => {
       if (!dataToSend.password) {
         delete dataToSend.password;
       }
-      await api.put(`/user/${user._id}`, dataToSend);
+      const res = await api.put(`/user/${user._id}`, dataToSend);
 
       const updatedUser = { ...user, ...res.data };
       setUser(updatedUser);

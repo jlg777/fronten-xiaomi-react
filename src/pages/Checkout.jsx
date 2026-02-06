@@ -62,7 +62,7 @@ const Checkout = () => {
         <Navbar />
         <div className="text-center py-5">
           <h3>No hay productos en el carrito</h3>
-          <Button href="/products" className="mt-3">
+          <Button href="/productos" className="mt-3">
             Continuar comprando
           </Button>
         </div>
@@ -239,7 +239,7 @@ const Checkout = () => {
                     </Button>
                     <Button
                       variant="outline-secondary"
-                      onClick={() => navigate("/ShoppingCart")}
+                      onClick={() => navigate("/shoppingcart")}
                     >
                       Volver al carrito
                     </Button>
