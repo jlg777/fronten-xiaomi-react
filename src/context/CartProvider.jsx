@@ -6,7 +6,7 @@ const initialState = JSON.parse(localStorage.getItem("cart")) || [];
 
 const cartReducer = (state, action) => {
   switch (action.type) {
-    case "ADD_TO_CART":
+    case "ADD_TO_CART": {
       const itemExists = state.find((item) => item._id === action.payload._id);
 
       if (itemExists) {
@@ -18,7 +18,7 @@ const cartReducer = (state, action) => {
       }
 
       return [...state, { ...action.payload, qty: 1 }];
-
+    }
     case "REMOVE_FROM_CART":
       return state.filter((item) => item._id !== action.payload);
 

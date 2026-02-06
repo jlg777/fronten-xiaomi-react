@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../../context/CartContext";
 import useProducts from "../../hooks/useProducts";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const ProductCard = () => {
-  const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
   const { products, loading, error } = useProducts();
   const featuredProducts = products.slice(0, 6);
   const [isFavorite, SetIsFavorite] = useState(false);

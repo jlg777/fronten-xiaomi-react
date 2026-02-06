@@ -55,7 +55,7 @@ const ShoppingCart = () => {
                     className="btn btn-outline-primary me-2"
                     onClick={() => increaseQty(prod._id)}
                   >
-                    <i class="bi bi-plus-square"></i>
+                    <i className="bi bi-plus-square"></i>
                   </button>
                   <button
                     type="button"
@@ -63,7 +63,7 @@ const ShoppingCart = () => {
                     disabled={prod.qty === 1}
                     onClick={() => decreaseQty(prod._id)}
                   >
-                    <i class="bi bi-dash-square"></i>
+                    <i className="bi bi-dash-square"></i>
                   </button>
                   <button
                     type="button"

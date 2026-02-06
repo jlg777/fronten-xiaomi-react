@@ -39,7 +39,7 @@ const User = () => {
       }
     };
     fetchUser();
-  }, [setUser]);
+  }, [token, setUser]);
 
   useEffect(() => {
     if (user?._id) {
@@ -75,7 +75,7 @@ const User = () => {
       if (!dataToSend.password) {
         delete dataToSend.password;
       }
-      await api.put(`/user/${user._id}`, dataToSend);
+      const res = await api.put(`/user/${user._id}`, dataToSend);
 
       const updatedUser = { ...user, ...res.data };
       setUser(updatedUser);
@@ -197,8 +197,10 @@ const User = () => {
                         {order.items[0]?.product?.name || "Producto"}
                       </h5>
                       <p className="card-text">
-                        <strong>Fecha:</strong> {formatDate(order.createdAt)} <br />
-                        <strong>Cantidad:</strong> {order.items[0]?.quantity} <br />
+                        <strong>Fecha:</strong> {formatDate(order.createdAt)}{" "}
+                        <br />
+                        <strong>Cantidad:</strong> {order.items[0]?.quantity}{" "}
+                        <br />
                         <strong>Total:</strong> ${order.total}
                         <strong>Forma de pago:</strong> ${order.paymentMethod}
                         <br />
