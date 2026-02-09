@@ -14,6 +14,7 @@ import Product from "./pages/Product";
 import { Toaster } from "react-hot-toast";
 import Checkout from "./pages/Checkout";
 import AdminOrders from "./pages/AdminOrders";
+import Nosotros from "./pages/Nosotros";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         {/* Ruta pública */}
         <Route path="/" element={<Home />} />
         <Route path="/productos" element={<Products />} />
+        <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/shoppingcart" element={<ShoppingCart />} />

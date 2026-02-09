@@ -77,7 +77,7 @@ const User = () => {
       }
       const res = await api.put(`/user/${user._id}`, dataToSend);
 
-      const updatedUser = { ...user, ...res.data };
+      const updatedUser = res.data.user;
       setUser(updatedUser);
       localStorage.setItem("user", JSON.stringify(updatedUser));
 
@@ -202,7 +202,9 @@ const User = () => {
                         <strong>Cantidad:</strong> {order.items[0]?.quantity}{" "}
                         <br />
                         <strong>Total:</strong> ${order.total}
-                        <strong>Forma de pago:</strong> ${order.paymentMethod}
+                        <br />
+                        <strong>Forma de pago:</strong>
+                        {order.paymentMethod}
                         <br />
                         <strong>Estado:</strong> {order.status}
                       </p>

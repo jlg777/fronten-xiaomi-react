@@ -107,7 +107,6 @@ const Checkout = () => {
                 <div className="d-flex justify-content-between fw-bold fs-5">
                   <span>Total:</span>
                   <span>
-                    $
                     {total.toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
