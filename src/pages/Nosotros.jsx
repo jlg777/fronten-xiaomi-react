@@ -4,4 +4,4 @@ const Nosotros = () => {
   )
 }
 
-export default Nosotros
+export default Nosotros;
