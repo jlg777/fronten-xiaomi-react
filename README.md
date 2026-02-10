@@ -28,15 +28,15 @@
 ![React](https://img.shields.io/badge/React-19.x-61DAFB?logo=react&logoColor=black)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.x-7952B3?logo=bootstrap&logoColor=white)
 
-Frontend de e-commerce inspirado en Xiaomi, desarrollado con React y Vite. Incluye autenticacion, carrito, checkout y paneles de usuario/admin.
+Frontend de e-commerce inspirado en Xiaomi, desarrollado con React y Vite. Incluye autenticación, carrito, checkout y paneles de usuario/admin.
 
 ## 🚀 Caracteristicas actuales
 
 - Catalogo de productos con listado y detalle.
 - Carrito de compras persistente y flujo de checkout protegido.
 - Registro e inicio de sesion con JWT y rutas privadas.
-- Panel de usuario con gestion de perfil y pedidos.
-- Panel admin para gestion de productos y ordenes.
+- Panel de usuario con gestión de perfil y pedidos.
+- Panel admin para gestión de productos y ordenes.
 - Notificaciones con react-hot-toast y SweetAlert2.
 - UI responsive con Bootstrap y React-Bootstrap.
 
